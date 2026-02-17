@@ -1,0 +1,128 @@
+// ─── Primitives ──────────────────────────────────────────────────────────────
+
+export type RegionId =
+  | 'blue'
+  | 'green'
+  | 'red'
+  | 'purple'
+  | 'yellow'
+  | 'orange'
+  | 'grey'
+  | 'brown'
+  | 'pink'
+
+export interface CellCoord {
+  row: number
+  col: number
+}
+
+export type Queen = CellCoord
+
+/** String key used as ConflictMap key: "row:col" */
+export type CellKey = `${number}:${number}`
+
+/**
+ * Set of cell keys involved in at least one violation.
+ * Derived on every render — never stored in state.
+ */
+export type ConflictMap = Map<string, true>
+
+// ─── Stage (static data) ─────────────────────────────────────────────────────
+
+export interface Stage {
+  id: string
+  number: number
+  label: string
+  /** N: board is NxN, N regions, N queens required */
+  size: number
+  /** [row][col] → RegionId */
+  grid: RegionId[][]
+}
+
+// ─── Game Session (ephemeral Zustand store) ───────────────────────────────────
+
+export interface GameSession {
+  stageId: string
+  queens: Queen[]
+  timerStartedAt: number | null
+  elapsedSeconds: number
+  isSolved: boolean
+  isNewRecord: boolean
+}
+
+export interface GameStoreState extends GameSession {
+  loadStage: (stageId: string) => void
+  placeOrRemoveQueen: (coord: CellCoord) => void
+  restart: () => void
+  tick: () => void
+  markSolved: (elapsedSeconds: number, isNewRecord: boolean) => void
+}
+
+// ─── Best Times (persisted Zustand store) ────────────────────────────────────
+
+export interface BestTimesState {
+  bestTimes: Record<string, number>
+  saveBestTime: (stageId: string, seconds: number) => void
+  getBestTime: (stageId: string) => number | undefined
+}
+
+// ─── Pure function type aliases ───────────────────────────────────────────────
+
+export type WouldConflictFn = (
+  candidate: CellCoord,
+  existingQueens: Queen[],
+  stage: Stage,
+) => boolean
+
+export type DeriveConflictsFn = (queens: Queen[], stage: Stage) => ConflictMap
+
+export type ToggleQueenFn = (queens: Queen[], coord: CellCoord) => Queen[]
+
+export type IsSolvedFn = (queens: Queen[], stage: Stage) => boolean
+
+// ─── Component props ─────────────────────────────────────────────────────────
+
+export interface BoardProps {
+  stage: Stage
+  queens: Queen[]
+  conflicts: ConflictMap
+  onCellClick: (coord: CellCoord) => void
+  disabled: boolean
+}
+
+export interface CellBorders {
+  /** true = thick border (neighbour is a different region), false = thin default border */
+  right: boolean
+  /** true = thick border (neighbour is a different region), false = thin default border */
+  bottom: boolean
+}
+
+export interface CellProps {
+  coord: CellCoord
+  regionId: RegionId
+  hasQueen: boolean
+  isConflict: boolean
+  onClick: () => void
+  disabled: boolean
+  borders: CellBorders
+}
+
+export interface StageCardProps {
+  stage: Stage
+  bestTime: number | undefined
+  onSelect: (stageId: string) => void
+}
+
+export interface TimerProps {
+  elapsedSeconds: number
+  isRunning: boolean
+}
+
+export interface CompletionModalProps {
+  isVisible: boolean
+  elapsedSeconds: number
+  isNewRecord: boolean
+  previousBest: number | undefined
+  onPlayAgain: () => void
+  onBackToMenu: () => void
+}

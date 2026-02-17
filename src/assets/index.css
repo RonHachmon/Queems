@@ -1,0 +1,14 @@
+@import "tailwindcss";
+
+@theme {
+  /* Board region colors — one per RegionId used across all stages */
+  --color-region-blue:   #8bb6ff;
+  --color-region-green:  #aada94;
+  --color-region-red:    #fe6f55;
+  --color-region-purple: #b398de;
+  --color-region-yellow: #e3f27d;
+  --color-region-orange: #ffc088;
+  --color-region-grey:   #dbdbdb;
+  --color-region-brown:  #b0a994;
+  --color-region-pink:   #dc95b7;
+}
