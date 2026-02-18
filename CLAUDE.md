@@ -93,4 +93,31 @@ confirmed RED before the corresponding implementation is written.
 - 001-queens-mock: Initial project — full Vite SPA + React 19 + TypeScript 5 stack
 
 <!-- MANUAL ADDITIONS START -->
+## GitHub CLI (gh) — Useful Commands
+
+> **Note**: The GitHub MCP server is authenticated with a different account.
+> Always use `gh` CLI for GitHub operations — it is authenticated as `RonHachmon`.
+
+```bash
+# Auth
+gh auth status                          # confirm logged-in account
+
+# Issues
+gh issue create --title "..." --body "..."          # create issue
+gh issue list                                        # list open issues
+gh issue view <number>                               # view issue detail
+gh issue close <number>                              # close issue
+
+# Pull Requests
+gh pr create --title "..." --base main --body "..."  # create PR (on current branch)
+gh pr list                                           # list open PRs
+gh pr view <number>                                  # view PR detail
+gh pr merge <number> --squash                        # merge PR
+
+# Linking PR to issue: include "Closes #<N>" in the PR body
+# Example PR body opener: "Closes #5\n\n## Summary\n..."
+
+# Branches
+gh pr checkout <number>                              # check out a PR branch locally
+```
 <!-- MANUAL ADDITIONS END -->
