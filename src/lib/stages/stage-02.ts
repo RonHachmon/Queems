@@ -9,13 +9,14 @@ export const stage02: Stage = {
   id: 'stage-02',
   number: 2,
   label: 'Stage 2',
-  size: 6,
+  size: 7,
   grid: [
-    ['amber',  'amber',  'red',    'red',    'blue',   'blue'  ],
-    ['amber',  'purple', 'red',    'red',    'blue',   'green' ],
-    ['amber',  'purple', 'purple', 'teal',   'blue',   'green' ],
-    ['amber',  'purple', 'teal',   'teal',   'teal',   'green' ],
-    ['amber',  'purple', 'teal',   'teal',   'green',  'green' ],
-    ['amber',  'amber',  'amber',  'teal',   'green',  'green' ],
+    ['purple', 'purple', 'purple', 'purple', 'purple', 'purple', 'purple'],
+    ['orange', 'orange', 'orange', 'orange', 'orange', 'orange', 'orange'],
+    ['orange', 'blue'  , 'orange', 'orange', 'red'   , 'red'   , 'red'   ],
+    ['blue'  , 'blue'  , 'orange', 'orange', 'red'   , 'grey'  , 'grey'  ],
+    ['green' , 'blue'  , 'orange', 'orange', 'red'   , 'red'   , 'red'   ],
+    ['green' , 'blue'  , 'orange', 'orange', 'red'   , 'yellow', 'red'   ],
+    ['blue'  , 'blue'  , 'blue'  , 'orange', 'red'   , 'red'   , 'red'   ]
   ],
 }

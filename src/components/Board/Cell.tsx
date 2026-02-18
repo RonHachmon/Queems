@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { Crown } from 'lucide-react'
+import { Crown, X } from 'lucide-react'
 import type { CellProps } from '@/types'
 import { cn } from '@/lib/cn'
 import { getRegionClass } from '@/lib/region-colors'
@@ -9,14 +9,24 @@ export default function Cell({
   regionId,
   hasQueen,
   isConflict,
+  isMarked,
   onClick,
   disabled,
   borders,
 }: CellProps) {
+  const ariaLabel = [
+    `Row ${coord.row + 1}, Column ${coord.col + 1}, ${regionId} region`,
+    isMarked && !hasQueen && 'X marked',
+    hasQueen && 'queen placed',
+    isConflict && 'conflict',
+  ]
+    .filter(Boolean)
+    .join(', ')
+
   return (
     <motion.button
       type="button"
-      aria-label={`Row ${coord.row + 1}, Column ${coord.col + 1}, ${regionId} region${hasQueen ? ', queen placed' : ''}${isConflict ? ', conflict' : ''}`}
+      aria-label={ariaLabel}
       disabled={disabled}
       onClick={onClick}
       whileTap={!disabled ? { scale: 0.9 } : undefined}
@@ -40,6 +50,9 @@ export default function Cell({
           )}
           strokeWidth={2.5}
         />
+      )}
+      {isMarked && !hasQueen && (
+        <X className="w-1/2 h-1/2 text-gray-500" strokeWidth={2.5} />
       )}
     </motion.button>
   )

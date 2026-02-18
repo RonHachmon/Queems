@@ -21,3 +21,37 @@ export function isSolved(queens: Queen[], stage: Stage): boolean {
   if (queens.length !== stage.size) return false
   return deriveConflicts(queens, stage).size === 0
 }
+
+/**
+ * Pure function — returns all cells invalidated by placing a queen at `queen`.
+ * A cell is invalidated when it shares the same row, column, any of the 8
+ * adjacent cells (orthogonal + diagonal), or the same colored region.
+ * The queen's own cell is excluded. Each invalidated cell appears exactly once.
+ */
+export function computeInvalidationSet(queen: CellCoord, stage: Stage): CellCoord[] {
+  const { row: qr, col: qc } = queen
+  const region = stage.grid[qr][qc]
+  const seen = new Set<string>()
+  const result: CellCoord[] = []
+
+  for (let r = 0; r < stage.size; r++) {
+    for (let c = 0; c < stage.size; c++) {
+      if (r === qr && c === qc) continue // skip queen's own cell
+
+      const sameRow = r === qr
+      const sameCol = c === qc
+      const adjacent = Math.abs(r - qr) <= 1 && Math.abs(c - qc) <= 1
+      const sameRegion = stage.grid[r][c] === region
+
+      if (sameRow || sameCol || adjacent || sameRegion) {
+        const key = `${r}:${c}`
+        if (!seen.has(key)) {
+          seen.add(key)
+          result.push({ row: r, col: c })
+        }
+      }
+    }
+  }
+
+  return result
+}

@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useMemo, useRef } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { RotateCcw, ChevronLeft } from 'lucide-react'
@@ -9,6 +9,7 @@ import { deriveConflicts } from '@/lib/rule-validator'
 import Board from '@/components/Board/Board'
 import Timer from '@/components/Timer'
 import CompletionModal from '@/components/CompletionModal'
+import type { CellKey } from '@/types'
 
 export default function PuzzlePage() {
   const { stageId = '' } = useParams<{ stageId: string }>()
@@ -20,8 +21,12 @@ export default function PuzzlePage() {
     elapsedSeconds,
     isSolved,
     isNewRecord,
+    manualMarks,
+    autoMarksByQueen,
+    autoMarkEnabled,
     loadStage,
-    placeOrRemoveQueen,
+    cycleCell,
+    toggleAutoMark,
     restart,
     tick,
     markSolved,
@@ -73,6 +78,15 @@ export default function PuzzlePage() {
   const timerRunning = queens.length > 0 && !isSolved
   const previousBest = getBestTime(stageId)
 
+  // Derive full set of marked cells: union of manual marks and all auto-marks
+  const markedCells = useMemo(() => {
+    const set = new Set<CellKey>(manualMarks)
+    for (const cells of Object.values(autoMarksByQueen)) {
+      for (const key of cells) set.add(key)
+    }
+    return set
+  }, [manualMarks, autoMarksByQueen])
+
   // Build aria-live message
   const liveMessage = isSolved
     ? 'Puzzle solved!'
@@ -117,12 +131,25 @@ export default function PuzzlePage() {
       {/* Timer */}
       <Timer elapsedSeconds={elapsedSeconds} isRunning={timerRunning} />
 
+      {/* Auto-Mark toggle */}
+      <label className="flex items-center gap-2 text-sm text-gray-600 cursor-pointer select-none">
+        <input
+          type="checkbox"
+          checked={autoMarkEnabled}
+          onChange={toggleAutoMark}
+          disabled={isSolved}
+          className="w-4 h-4 cursor-pointer"
+        />
+        Auto-mark invalid cells
+      </label>
+
       {/* Board */}
       <Board
         stage={stage}
         queens={queens}
         conflicts={conflicts}
-        onCellClick={placeOrRemoveQueen}
+        markedCells={markedCells}
+        onCellClick={cycleCell}
         disabled={isSolved}
       />
 

@@ -48,11 +48,20 @@ export interface GameSession {
   elapsedSeconds: number
   isSolved: boolean
   isNewRecord: boolean
+  /** Cells manually marked with X by the player */
+  manualMarks: CellKey[]
+  /** Maps each placed queen's CellKey to the cells it auto-marked */
+  autoMarksByQueen: Record<string, CellKey[]>
+  /** Whether the Auto-Mark toggle is on */
+  autoMarkEnabled: boolean
 }
 
 export interface GameStoreState extends GameSession {
   loadStage: (stageId: string) => void
   placeOrRemoveQueen: (coord: CellCoord) => void
+  /** Three-state click cycle: empty → X-marked → queen → empty */
+  cycleCell: (coord: CellCoord) => void
+  toggleAutoMark: () => void
   restart: () => void
   tick: () => void
   markSolved: (elapsedSeconds: number, isNewRecord: boolean) => void
@@ -86,6 +95,8 @@ export interface BoardProps {
   stage: Stage
   queens: Queen[]
   conflicts: ConflictMap
+  /** Derived set of all cells currently displaying an X mark */
+  markedCells: Set<CellKey>
   onCellClick: (coord: CellCoord) => void
   disabled: boolean
 }
@@ -102,6 +113,8 @@ export interface CellProps {
   regionId: RegionId
   hasQueen: boolean
   isConflict: boolean
+  /** True when this cell displays an X mark (manual or auto) */
+  isMarked: boolean
   onClick: () => void
   disabled: boolean
   borders: CellBorders

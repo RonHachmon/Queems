@@ -11,13 +11,13 @@ export const stage05: Stage = {
   label: 'Stage 5',
   size: 8,
   grid: [
-    ['purple', 'pink',   'amber',  'amber',  'blue',   'blue',   'red',    'green' ],
-    ['purple', 'pink',   'amber',  'blue',   'blue',   'blue',   'red',    'green' ],
-    ['purple', 'pink',   'amber',  'blue',   'teal',   'teal',   'red',    'green' ],
-    ['purple', 'pink',   'pink',   'blue',   'teal',   'teal',   'teal',   'green' ],
-    ['purple', 'pink',   'pink',   'orange', 'orange', 'teal',   'teal',   'green' ],
-    ['purple', 'orange', 'orange', 'orange', 'orange', 'teal',   'teal',   'green' ],
-    ['purple', 'pink',   'orange', 'orange', 'orange', 'orange', 'teal',   'green' ],
-    ['purple', 'pink',   'pink',   'pink',   'pink',   'orange', 'teal',   'green' ],
+    ['purple', 'purple', 'purple', 'orange', 'orange', 'orange', 'orange', 'orange'],
+    ['purple', 'purple', 'purple', 'orange', 'blue'  , 'blue'  , 'green' , 'green' ],
+    ['purple', 'purple', 'purple', 'purple', 'purple', 'blue'  , 'green' , 'green' ],
+    ['grey'  , 'grey'  , 'purple', 'purple', 'purple', 'purple', 'green' , 'green' ],
+    ['red'   , 'grey'  , 'purple', 'purple', 'purple', 'purple', 'green' , 'green' ],
+    ['red'   , 'grey'  , 'grey'  , 'purple', 'purple', 'purple', 'purple', 'purple'],
+    ['red'   , 'yellow', 'yellow', 'yellow', 'brown' , 'purple', 'purple', 'purple'],
+    ['red'   , 'red'   , 'red'   , 'yellow', 'brown' , 'purple', 'purple', 'purple']
   ],
 }

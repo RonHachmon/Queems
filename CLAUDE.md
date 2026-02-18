@@ -1,6 +1,6 @@
 # Queems Development Guidelines
 
-Auto-generated from feature plan. Last updated: 2026-02-17
+Auto-generated from feature plan. Last updated: 2026-02-18
 
 ## Active Technologies
 
@@ -85,6 +85,7 @@ confirmed RED before the corresponding implementation is written.
 
 ## Recent Changes
 
+- 002-mark-cells: Three-state cell cycle (empty → X → queen), Auto-Mark toggle, `computeInvalidationSet` pure fn
 - 001-queens-mock: Initial project — full Vite SPA + React 19 + TypeScript 5 stack
 
 <!-- MANUAL ADDITIONS START -->

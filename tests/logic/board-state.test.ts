@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { toggleQueen, isSolved } from '@/lib/board-state'
+import { toggleQueen, isSolved, computeInvalidationSet } from '@/lib/board-state'
 import type { Stage, Queen, CellCoord } from '@/types'
 
 // ─── Minimal 5×5 test stage ──────────────────────────────────────────────────
@@ -95,5 +95,90 @@ describe('isSolved', () => {
     // 6 queens on a 5×5 board must have duplicates or conflicts
     const tooMany: Queen[] = [...validSolution, at(2, 1)]
     expect(isSolved(tooMany, testStage)).toBe(false)
+  })
+})
+
+// ─── computeInvalidationSet ───────────────────────────────────────────────────
+
+describe('computeInvalidationSet', () => {
+  // Queen placed at (2,2) — middle of the 5×5 testStage
+  // Region at (2,2) is 'B'
+  const queenAt = at(2, 2)
+
+  it('excludes the queen own cell from the result', () => {
+    const result = computeInvalidationSet(queenAt, testStage)
+    const hasOwn = result.some((c) => c.row === 2 && c.col === 2)
+    expect(hasOwn).toBe(false)
+  })
+
+  it('includes all cells in the same row', () => {
+    const result = computeInvalidationSet(queenAt, testStage)
+    // Row 2: cols 0,1,3,4 should all be present
+    for (const col of [0, 1, 3, 4]) {
+      expect(result.some((c) => c.row === 2 && c.col === col)).toBe(true)
+    }
+  })
+
+  it('includes all cells in the same column', () => {
+    const result = computeInvalidationSet(queenAt, testStage)
+    // Col 2: rows 0,1,3,4 should all be present
+    for (const row of [0, 1, 3, 4]) {
+      expect(result.some((c) => c.row === row && c.col === 2)).toBe(true)
+    }
+  })
+
+  it('includes all 8 adjacent cells', () => {
+    const result = computeInvalidationSet(queenAt, testStage)
+    // Adjacent to (2,2): (1,1),(1,2),(1,3),(2,1),(2,3),(3,1),(3,2),(3,3)
+    const adjacentCells = [
+      { row: 1, col: 1 }, { row: 1, col: 3 },
+      { row: 3, col: 1 }, { row: 3, col: 3 },
+    ]
+    for (const cell of adjacentCells) {
+      expect(result.some((c) => c.row === cell.row && c.col === cell.col)).toBe(true)
+    }
+  })
+
+  it('includes all cells in the same colored region', () => {
+    // testStage: region at (2,2) is grid[2][2] = 'B'
+    // 'B' cells: (0,2),(0,3),(0,4),(1,2),(1,3),(2,2),(2,3) — excluding (2,2) itself
+    const result = computeInvalidationSet(queenAt, testStage)
+    const regionBCells = [
+      { row: 0, col: 2 }, { row: 0, col: 3 }, { row: 0, col: 4 },
+      { row: 1, col: 2 }, { row: 1, col: 3 },
+      { row: 2, col: 3 },
+    ]
+    for (const cell of regionBCells) {
+      expect(result.some((c) => c.row === cell.row && c.col === cell.col)).toBe(true)
+    }
+  })
+
+  it('deduplicates cells that match multiple conditions', () => {
+    // (1,2) is same-col AND adjacent to (2,2) AND same region 'B'
+    // It should appear exactly once in the result
+    const result = computeInvalidationSet(queenAt, testStage)
+    const count = result.filter((c) => c.row === 1 && c.col === 2).length
+    expect(count).toBe(1)
+  })
+
+  it('returns only board-valid cells (no out-of-bounds)', () => {
+    // Queen at corner (0,0) — adjacent cells that are off-board must not appear
+    const cornerQueen = at(0, 0)
+    const result = computeInvalidationSet(cornerQueen, testStage)
+    for (const cell of result) {
+      expect(cell.row).toBeGreaterThanOrEqual(0)
+      expect(cell.row).toBeLessThan(testStage.size)
+      expect(cell.col).toBeGreaterThanOrEqual(0)
+      expect(cell.col).toBeLessThan(testStage.size)
+    }
+  })
+
+  it('is a pure function — does not mutate inputs', () => {
+    const queens = [at(0, 0)]
+    const stageCopy = JSON.parse(JSON.stringify(testStage)) as Stage
+    computeInvalidationSet(at(2, 2), testStage)
+    // Stage should be unchanged
+    expect(testStage.grid).toEqual(stageCopy.grid)
+    expect(queens).toHaveLength(1)
   })
 })
