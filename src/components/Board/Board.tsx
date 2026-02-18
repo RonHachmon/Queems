@@ -1,7 +1,7 @@
 import type { BoardProps, CellKey } from '@/types'
 import Cell from './Cell'
 
-export default function Board({ stage, queens, conflicts, markedCells, onCellClick, disabled }: BoardProps) {
+export default function Board({ stage, queens, conflicts, markedCells, onCellClick, disabled, onCellMouseDown, onCellMouseEnter }: BoardProps) {
   return (
     <div
       className="w-full max-w-[min(90vw,24rem)] mx-auto border-4 border-gray-900  overflow-hidden shadow-xl"
@@ -31,6 +31,8 @@ export default function Board({ stage, queens, conflicts, markedCells, onCellCli
               onClick={() => onCellClick({ row: rowIdx, col: colIdx })}
               disabled={disabled}
               borders={{ right: thickRight, bottom: thickBottom }}
+              onMouseDown={() => onCellMouseDown?.({ row: rowIdx, col: colIdx })}
+              onMouseEnter={() => onCellMouseEnter?.({ row: rowIdx, col: colIdx })}
             />
           )
         }),

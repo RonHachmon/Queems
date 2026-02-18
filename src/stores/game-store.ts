@@ -107,6 +107,22 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     }
   },
 
+  addManualMark(coord: CellCoord) {
+    const state = get()
+    const key: CellKey = `${coord.row}:${coord.col}`
+
+    // No-op if cell has a queen
+    if (state.queens.some((q) => q.row === coord.row && q.col === coord.col)) return
+
+    // No-op if already manually marked
+    if (state.manualMarks.includes(key)) return
+
+    // No-op if auto-marked by any queen
+    if (Object.values(state.autoMarksByQueen).some((cells) => cells.includes(key))) return
+
+    set({ manualMarks: [...state.manualMarks, key] })
+  },
+
   toggleAutoMark() {
     const state = get()
     const newEnabled = !state.autoMarkEnabled

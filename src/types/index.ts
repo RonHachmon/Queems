@@ -61,6 +61,11 @@ export interface GameStoreState extends GameSession {
   placeOrRemoveQueen: (coord: CellCoord) => void
   /** Three-state click cycle: empty → X-marked → queen → empty */
   cycleCell: (coord: CellCoord) => void
+  /**
+   * Mark a cell with X only if it is currently empty (no queen, no manual mark,
+   * no auto-mark). Calling on a non-empty cell is a no-op. Used by drag marking.
+   */
+  addManualMark: (coord: CellCoord) => void
   toggleAutoMark: () => void
   restart: () => void
   tick: () => void
@@ -99,6 +104,10 @@ export interface BoardProps {
   markedCells: Set<CellKey>
   onCellClick: (coord: CellCoord) => void
   disabled: boolean
+  /** Called with the coord of the cell where the primary mouse button was pressed (drag support). */
+  onCellMouseDown?: (coord: CellCoord) => void
+  /** Called with the coord of the cell the cursor entered while the button is held (drag support). */
+  onCellMouseEnter?: (coord: CellCoord) => void
 }
 
 export interface CellBorders {
@@ -118,6 +127,10 @@ export interface CellProps {
   onClick: () => void
   disabled: boolean
   borders: CellBorders
+  /** Called when the primary mouse button is pressed on this cell (drag support). */
+  onMouseDown?: () => void
+  /** Called when the cursor enters this cell while the mouse button is held (drag support). */
+  onMouseEnter?: () => void
 }
 
 export interface StageCardProps {

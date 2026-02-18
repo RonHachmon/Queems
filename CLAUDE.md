@@ -23,6 +23,8 @@ src/
 │   ├── rule-validator.ts      ← pure constraint checker (TDD)
 │   ├── board-state.ts         ← pure board helpers (TDD)
 │   └── stages/                ← static stage definitions
+├── hooks/
+│   └── useDragMark.ts         ← drag session management (003-drag-mark-x)
 ├── stores/
 │   ├── game-store.ts          ← Zustand ephemeral session
 │   └── best-times-store.ts    ← Zustand + persist → localStorage
@@ -41,7 +43,8 @@ tests/
 └── logic/
     ├── rule-validator.test.ts
     ├── board-state.test.ts
-    └── best-times-store.test.ts
+    ├── best-times-store.test.ts
+    └── game-store.test.ts     ← TDD for addManualMark (003-drag-mark-x)
 ```
 
 ## Commands
@@ -85,6 +88,7 @@ confirmed RED before the corresponding implementation is written.
 
 ## Recent Changes
 
+- 003-drag-mark-x: Click-and-drag X marking — `useDragMark` hook, `addManualMark` store action, Cell/Board drag props
 - 002-mark-cells: Three-state cell cycle (empty → X → queen), Auto-Mark toggle, `computeInvalidationSet` pure fn
 - 001-queens-mock: Initial project — full Vite SPA + React 19 + TypeScript 5 stack
 
