@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(SPECIFY_FEATURE=\"002-mark-cells\" bash:*)",
+      "Bash(bash --version)",
+      "Bash(pnpm vitest run:*)"
+    ]
+  }
+}
