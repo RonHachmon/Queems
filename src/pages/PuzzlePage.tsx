@@ -17,6 +17,7 @@ export default function PuzzlePage() {
   const liveRegionRef = useRef<HTMLParagraphElement>(null)
 
   const {
+    stageId: loadedStageId,
     queens,
     elapsedSeconds,
     isSolved,
@@ -31,6 +32,8 @@ export default function PuzzlePage() {
     tick,
     markSolved,
   } = useGameStore()
+
+  const isStageReady = loadedStageId === stageId
 
   const { saveBestTime, getBestTime } = useBestTimesStore()
 
@@ -51,6 +54,7 @@ export default function PuzzlePage() {
   // Detect solve: save best time and determine if it's a new record
   useEffect(() => {
     if (!isSolved) return
+    if (!isStageReady) return  // guard: don't re-trigger on stale solved state from a previous puzzle
     const prevBest = getBestTime(stageId)
     const isNew = prevBest === undefined || elapsedSeconds < prevBest
     saveBestTime(stageId, elapsedSeconds)
@@ -146,9 +150,9 @@ export default function PuzzlePage() {
       {/* Board */}
       <Board
         stage={stage}
-        queens={queens}
-        conflicts={conflicts}
-        markedCells={markedCells}
+        queens={isStageReady ? queens : []}
+        conflicts={isStageReady ? conflicts : new Map()}
+        markedCells={isStageReady ? markedCells : new Set()}
         onCellClick={cycleCell}
         disabled={isSolved}
       />
@@ -170,7 +174,7 @@ export default function PuzzlePage() {
 
       {/* Completion modal */}
       <CompletionModal
-        isVisible={isSolved}
+        isVisible={isSolved && isStageReady}
         elapsedSeconds={elapsedSeconds}
         isNewRecord={isNewRecord}
         previousBest={previousBest}

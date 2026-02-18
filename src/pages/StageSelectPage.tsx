@@ -22,7 +22,7 @@ export default function StageSelectPage() {
           <Crown className="w-8 h-8 text-amber-400" strokeWidth={1.5} />
           <h1 className="text-3xl font-extrabold tracking-tight text-gray-900">Queems</h1>
         </div>
-        <p className="text-sm text-gray-500">Place one queen per region — no conflicts allowed.</p>
+        <p className="text-sm text-gray-500">It's Queens, but with an  <span className="font-bold">M.</span></p>
       </div>
 
       {/* Stage grid — 1 col on mobile, 2 on sm, 3 on lg */}

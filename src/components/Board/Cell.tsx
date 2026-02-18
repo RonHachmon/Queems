@@ -51,8 +51,9 @@ export default function Cell({
           strokeWidth={2.5}
         />
       )}
+      
       {isMarked && !hasQueen && (
-        <X className="w-1/2 h-1/2 text-gray-500" strokeWidth={2.5} />
+        <X className="w-1/3 h-1/3 text-gray-600" strokeWidth={2.5} />
       )}
     </motion.button>
   )

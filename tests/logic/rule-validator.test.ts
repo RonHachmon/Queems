@@ -9,11 +9,11 @@ const testStage: Stage = {
   label: 'Test',
   size: 5,
   grid: [
-    ['A', 'A', 'B', 'B', 'B'],
-    ['A', 'A', 'B', 'B', 'C'],
-    ['D', 'D', 'B', 'C', 'C'],
-    ['D', 'D', 'D', 'C', 'E'],
-    ['D', 'E', 'E', 'E', 'E'],
+    ['blue', 'blue', 'green', 'green', 'green'],
+    ['blue', 'blue', 'green', 'green', 'red'],
+    ['purple', 'purple', 'green', 'red', 'red'],
+    ['purple', 'purple', 'purple', 'red', 'yellow'],
+    ['purple', 'yellow', 'yellow', 'yellow', 'yellow'],
   ],
 }
 
