@@ -13,6 +13,8 @@ export default function Cell({
   onClick,
   disabled,
   borders,
+  onMouseDown,
+  onMouseEnter,
 }: CellProps) {
   const ariaLabel = [
     `Row ${coord.row + 1}, Column ${coord.col + 1}, ${regionId} region`,
@@ -29,6 +31,8 @@ export default function Cell({
       aria-label={ariaLabel}
       disabled={disabled}
       onClick={onClick}
+      onMouseDown={onMouseDown}
+      onMouseEnter={onMouseEnter}
       whileTap={!disabled ? { scale: 0.9 } : undefined}
       animate={hasQueen ? { scale: [1, 1.15, 1] } : { scale: 1 }}
       transition={{ type: 'spring', stiffness: 400, damping: 20 }}

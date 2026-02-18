@@ -4,6 +4,7 @@ import { motion } from 'framer-motion'
 import { RotateCcw, ChevronLeft } from 'lucide-react'
 import { useGameStore } from '@/stores/game-store'
 import { useBestTimesStore } from '@/stores/best-times-store'
+import { useDragMark } from '@/hooks/useDragMark'
 import { STAGES } from '@/lib/stages'
 import { deriveConflicts } from '@/lib/rule-validator'
 import Board from '@/components/Board/Board'
@@ -27,11 +28,14 @@ export default function PuzzlePage() {
     autoMarkEnabled,
     loadStage,
     cycleCell,
+    addManualMark,
     toggleAutoMark,
     restart,
     tick,
     markSolved,
   } = useGameStore()
+
+  const { dragHandlers, isDragGesture } = useDragMark({ onMarkCell: addManualMark, disabled: isSolved })
 
   const isStageReady = loadedStageId === stageId
 
@@ -154,7 +158,9 @@ export default function PuzzlePage() {
         queens={isStageReady ? queens : []}
         conflicts={isStageReady ? conflicts : new Map()}
         markedCells={isStageReady ? markedCells : new Set()}
-        onCellClick={cycleCell}
+        onCellClick={(coord) => { if (isDragGesture()) return; cycleCell(coord) }}
+        onCellMouseDown={dragHandlers.onCellMouseDown}
+        onCellMouseEnter={dragHandlers.onCellMouseEnter}
         disabled={isSolved}
       />
 

@@ -23,6 +23,8 @@ src/
 │   ├── rule-validator.ts      ← pure constraint checker (TDD)
 │   ├── board-state.ts         ← pure board helpers (TDD)
 │   └── stages/                ← static stage definitions
+├── hooks/
+│   └── useDragMark.ts         ← drag session management (003-drag-mark-x)
 ├── stores/
 │   ├── game-store.ts          ← Zustand ephemeral session
 │   └── best-times-store.ts    ← Zustand + persist → localStorage
@@ -41,7 +43,8 @@ tests/
 └── logic/
     ├── rule-validator.test.ts
     ├── board-state.test.ts
-    └── best-times-store.test.ts
+    ├── best-times-store.test.ts
+    └── game-store.test.ts     ← TDD for addManualMark (003-drag-mark-x)
 ```
 
 ## Commands
@@ -85,8 +88,36 @@ confirmed RED before the corresponding implementation is written.
 
 ## Recent Changes
 
+- 003-drag-mark-x: Click-and-drag X marking — `useDragMark` hook, `addManualMark` store action, Cell/Board drag props
 - 002-mark-cells: Three-state cell cycle (empty → X → queen), Auto-Mark toggle, `computeInvalidationSet` pure fn
 - 001-queens-mock: Initial project — full Vite SPA + React 19 + TypeScript 5 stack
 
 <!-- MANUAL ADDITIONS START -->
+## GitHub CLI (gh) — Useful Commands
+
+> **Note**: The GitHub MCP server is authenticated with a different account.
+> Always use `gh` CLI for GitHub operations — it is authenticated as `RonHachmon`.
+
+```bash
+# Auth
+gh auth status                          # confirm logged-in account
+
+# Issues
+gh issue create --title "..." --body "..."          # create issue
+gh issue list                                        # list open issues
+gh issue view <number>                               # view issue detail
+gh issue close <number>                              # close issue
+
+# Pull Requests
+gh pr create --title "..." --base main --body "..."  # create PR (on current branch)
+gh pr list                                           # list open PRs
+gh pr view <number>                                  # view PR detail
+gh pr merge <number> --squash                        # merge PR
+
+# Linking PR to issue: include "Closes #<N>" in the PR body
+# Example PR body opener: "Closes #5\n\n## Summary\n..."
+
+# Branches
+gh pr checkout <number>                              # check out a PR branch locally
+```
 <!-- MANUAL ADDITIONS END -->
