@@ -62,6 +62,16 @@ export default function PuzzlePage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSolved])
 
+  // Derive full set of marked cells: union of manual marks and all auto-marks
+  // Must be before early return to satisfy rules-of-hooks
+  const markedCells = useMemo(() => {
+    const set = new Set<CellKey>(manualMarks)
+    for (const cells of Object.values(autoMarksByQueen)) {
+      for (const key of cells) set.add(key)
+    }
+    return set
+  }, [manualMarks, autoMarksByQueen])
+
   if (!stage) {
     return (
       <div className="flex flex-col items-center justify-center min-h-screen gap-4">
@@ -81,15 +91,6 @@ export default function PuzzlePage() {
   const conflictCount = conflicts.size / 2 // each pair adds two entries
   const timerRunning = queens.length > 0 && !isSolved
   const previousBest = getBestTime(stageId)
-
-  // Derive full set of marked cells: union of manual marks and all auto-marks
-  const markedCells = useMemo(() => {
-    const set = new Set<CellKey>(manualMarks)
-    for (const cells of Object.values(autoMarksByQueen)) {
-      for (const key of cells) set.add(key)
-    }
-    return set
-  }, [manualMarks, autoMarksByQueen])
 
   // Build aria-live message
   const liveMessage = isSolved
