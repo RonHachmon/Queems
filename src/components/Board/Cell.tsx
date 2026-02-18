@@ -25,8 +25,8 @@ export default function Cell({
       className={cn(
         'aspect-square w-full flex items-center justify-center',
         'border-solid border-black transition-colors duration-150',
-        borders.right ? 'border-r-2' : 'border-r',
-        borders.bottom ? 'border-b-2' : 'border-b',
+        borders.right ? 'border-r-[2.5px]' : 'border-r',
+        borders.bottom ? 'border-b-[2.5px]' : 'border-b',
         getRegionClass(regionId),
         isConflict && 'ring-2 ring-inset ring-red-500',
         disabled ? 'cursor-default' : 'cursor-pointer hover:brightness-110',
