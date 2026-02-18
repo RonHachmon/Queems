@@ -30,6 +30,8 @@ export default function Cell({
       type="button"
       aria-label={ariaLabel}
       disabled={disabled}
+      data-row={coord.row}
+      data-col={coord.col}
       onClick={onClick}
       onMouseDown={onMouseDown}
       onMouseEnter={onMouseEnter}
