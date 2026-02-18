@@ -5,6 +5,7 @@ import { stage03 } from './stage-03'
 import { stage04 } from './stage-04'
 import { stage05 } from './stage-05'
 import { stage06 } from './stage-06'
+import { stage07 } from './stage-07'
 
 export const STAGES: Record<string, Stage> = {
   'stage-01': stage01,
@@ -13,6 +14,7 @@ export const STAGES: Record<string, Stage> = {
   'stage-04': stage04,
   'stage-05': stage05,
   'stage-06': stage06,
+  'stage-07': stage07,
 }
 
 export const STAGE_IDS: string[] = [
@@ -22,4 +24,5 @@ export const STAGE_IDS: string[] = [
   'stage-04',
   'stage-05',
   'stage-06',
+  'stage-07',
 ]
