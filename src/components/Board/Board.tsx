@@ -1,11 +1,29 @@
+import type React from 'react'
 import type { BoardProps, CellKey } from '@/types'
 import Cell from './Cell'
+
+function coordFromTouch(touch: React.Touch): { row: number; col: number } | null {
+  const el = document.elementFromPoint(touch.clientX, touch.clientY)
+  const cell = el?.closest('[data-row]') as HTMLElement | null
+  if (!cell?.dataset.row || !cell?.dataset.col) return null
+  const row = +cell.dataset.row
+  const col = +cell.dataset.col
+  return isNaN(row) || isNaN(col) ? null : { row, col }
+}
 
 export default function Board({ stage, queens, conflicts, markedCells, onCellClick, disabled, onCellMouseDown, onCellMouseEnter }: BoardProps) {
   return (
     <div
       className="w-full max-w-[min(90vw,24rem)] mx-auto border-4 border-gray-900  overflow-hidden shadow-xl"
-      style={{ display: 'grid', gridTemplateColumns: `repeat(${stage.size}, 1fr)` }}
+      style={{ display: 'grid', gridTemplateColumns: `repeat(${stage.size}, 1fr)`, touchAction: 'none' }}
+      onTouchStart={(e) => {
+        const coord = coordFromTouch(e.touches[0])
+        if (coord) onCellMouseDown?.(coord)
+      }}
+      onTouchMove={(e) => {
+        const coord = coordFromTouch(e.touches[0])
+        if (coord) onCellMouseEnter?.(coord)
+      }}
     >
       {stage.grid.map((row, rowIdx) =>
         row.map((regionId, colIdx) => {

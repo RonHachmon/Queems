@@ -60,13 +60,15 @@ export function useDragMark({ onMarkCell, disabled }: UseDragMarkOptions): UseDr
   const didDrag = useRef(false)       // whether the cursor entered a different cell during this press
   const visitedCells = useRef<Set<CellKey>>(new Set())
 
-  // ── Global mouseup: end session when button released anywhere ─────────────
+  // ── Global mouseup/touchend: end session when button/finger released anywhere ─
   useEffect(() => {
-    const handleMouseUp = () => {
-      isDragging.current = false
+    const endSession = () => { isDragging.current = false }
+    window.addEventListener('mouseup', endSession)
+    window.addEventListener('touchend', endSession)
+    return () => {
+      window.removeEventListener('mouseup', endSession)
+      window.removeEventListener('touchend', endSession)
     }
-    window.addEventListener('mouseup', handleMouseUp)
-    return () => window.removeEventListener('mouseup', handleMouseUp)
   }, [])
 
   // ── Handlers ──────────────────────────────────────────────────────────────
