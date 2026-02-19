@@ -5,8 +5,6 @@ import type { Stage, Queen, CellCoord } from '@/types'
 // ─── Minimal 5×5 test stage ──────────────────────────────────────────────────
 const testStage: Stage = {
   id: 'test',
-  number: 0,
-  label: 'Test',
   size: 5,
   grid: [
     ['blue', 'blue', 'green', 'green', 'green'],
