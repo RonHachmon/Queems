@@ -18,7 +18,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     set({
       stageId,
       queens: [],
-      timerStartedAt: null,
+      timerStartedAt: Date.now(),
       elapsedSeconds: 0,
       isSolved: false,
       isNewRecord: false,
@@ -34,16 +34,10 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
 
     const newQueens = toggleQueen(state.queens, coord)
 
-    // Start the timer on first queen placement
-    const timerStartedAt =
-      newQueens.length > 0 && state.timerStartedAt === null
-        ? Date.now()
-        : state.timerStartedAt
-
     const stage = STAGES[state.stageId]
     const solved = stage ? isSolved(newQueens, stage) : false
 
-    set({ queens: newQueens, timerStartedAt, isSolved: solved })
+    set({ queens: newQueens, isSolved: solved })
   },
 
   cycleCell(coord: CellCoord) {
@@ -74,10 +68,6 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       // X-marked → Queen: remove manual mark, place queen
       const newManualMarks = state.manualMarks.filter((k) => k !== key)
       const newQueens = [...state.queens, { row: coord.row, col: coord.col }]
-      const timerStartedAt =
-        newQueens.length > 0 && state.timerStartedAt === null
-          ? Date.now()
-          : state.timerStartedAt
 
       // Apply auto-marks for the newly placed queen if toggle is on
       let newAutoMarksByQueen = state.autoMarksByQueen
@@ -98,7 +88,6 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
         queens: newQueens,
         manualMarks: newManualMarks,
         autoMarksByQueen: newAutoMarksByQueen,
-        timerStartedAt,
         isSolved: solved,
       })
     } else {
@@ -150,8 +139,6 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
   restart() {
     set({
       queens: [],
-      timerStartedAt: null,
-      elapsedSeconds: 0,
       isSolved: false,
       isNewRecord: false,
       manualMarks: [],
