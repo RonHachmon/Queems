@@ -1,28 +1,7 @@
 import type { Stage } from '@/types'
-import { stage01 } from './stage-01'
-import { stage02 } from './stage-02'
-import { stage03 } from './stage-03'
-import { stage04 } from './stage-04'
-import { stage05 } from './stage-05'
-import { stage06 } from './stage-06'
-import { stage07 } from './stage-07'
+import { stages2026 } from './2026'
+// import { stages2027 } from './2027'  ← append when year rolls over
 
-export const STAGES: Record<string, Stage> = {
-  'stage-01': stage01,
-  'stage-02': stage02,
-  'stage-03': stage03,
-  'stage-04': stage04,
-  'stage-05': stage05,
-  'stage-06': stage06,
-  'stage-07': stage07,
-}
-
-export const STAGE_IDS: string[] = [
-  'stage-01',
-  'stage-02',
-  'stage-03',
-  'stage-04',
-  'stage-05',
-  'stage-06',
-  'stage-07',
-]
+export const ALL_STAGES: Stage[] = [...stages2026]
+export const STAGES: Record<string, Stage> = Object.fromEntries(ALL_STAGES.map(s => [s.id, s]))
+export const STAGE_IDS: string[] = ALL_STAGES.map(s => s.id)

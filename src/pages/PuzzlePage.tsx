@@ -53,7 +53,7 @@ export default function PuzzlePage() {
     if (isSolved) return
     const id = setInterval(tick, 1000)
     return () => clearInterval(id)
-  }, [isSolved, tick])
+  }, [isSolved, tick, isStageReady])
 
   // Detect solve: save best time and determine if it's a new record
   useEffect(() => {
@@ -93,7 +93,7 @@ export default function PuzzlePage() {
 
   const conflicts = deriveConflicts(queens, stage)
   const conflictCount = conflicts.size / 2 // each pair adds two entries
-  const timerRunning = queens.length > 0 && !isSolved
+  const timerRunning = !isSolved
   const previousBest = getBestTime(stageId)
 
   // Build aria-live message
@@ -124,7 +124,7 @@ export default function PuzzlePage() {
           <span className="text-sm font-medium">Menu</span>
         </button>
 
-        <h1 className="text-lg font-bold text-gray-800">{stage.label}</h1>
+        <h1 className="text-lg font-bold text-gray-800">{stage.id}</h1>
 
         <button
           type="button"
