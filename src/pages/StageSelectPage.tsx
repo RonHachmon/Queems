@@ -22,10 +22,10 @@ export default function StageSelectPage() {
           <Crown className="w-8 h-8 text-amber-400" strokeWidth={1.5} />
           <h1 className="text-3xl font-extrabold tracking-tight text-gray-900">Queems</h1>
         </div>
-        <p className="text-sm text-gray-500">It's Queens, but with an  <span className="font-bold">M.</span></p>
+        <p className="text-sm text-gray-500">It's Queens, but with an  <span className="text-2xl font-extrabold  text-amber-400">m</span> .</p>
       </div>
 
-      {/* Stage grid — 1 col on mobile, 2 on sm, 3 on lg */}
+
       <div className="w-full max-w-3xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
         {STAGE_IDS.map((stageId) => (
           <StageCard

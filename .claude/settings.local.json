@@ -4,7 +4,8 @@
       "Bash(SPECIFY_FEATURE=\"002-mark-cells\" bash:*)",
       "Bash(bash --version)",
       "Bash(pnpm vitest run:*)",
-      "Bash(bash .specify/scripts/bash/check-prerequisites.sh:*)"
+      "Bash(bash .specify/scripts/bash/check-prerequisites.sh:*)",
+      "Bash(gh issue create:*)"
     ]
   }
 }

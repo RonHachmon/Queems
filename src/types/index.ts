@@ -31,8 +31,6 @@ export type ConflictMap = Map<string, true>
 
 export interface Stage {
   id: string
-  number: number
-  label: string
   /** N: board is NxN, N regions, N queens required */
   size: number
   /** [row][col] → RegionId */
