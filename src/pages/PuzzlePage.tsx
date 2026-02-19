@@ -25,11 +25,9 @@ export default function PuzzlePage() {
     isNewRecord,
     manualMarks,
     autoMarksByQueen,
-    autoMarkEnabled,
     loadStage,
     cycleCell,
     addManualMark,
-    toggleAutoMark,
     restart,
     tick,
     markSolved,
@@ -139,18 +137,6 @@ export default function PuzzlePage() {
 
       {/* Timer */}
       <Timer elapsedSeconds={elapsedSeconds} isRunning={timerRunning} />
-
-      {/* Auto-Mark toggle */}
-      <label className="flex items-center gap-2 text-sm text-gray-600 cursor-pointer select-none">
-        <input
-          type="checkbox"
-          checked={autoMarkEnabled}
-          onChange={toggleAutoMark}
-          disabled={isSolved}
-          className="w-4 h-4 cursor-pointer"
-        />
-        Auto-mark invalid cells
-      </label>
 
       {/* Board */}
       <Board
