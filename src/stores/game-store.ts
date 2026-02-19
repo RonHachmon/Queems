@@ -2,6 +2,7 @@ import { create } from 'zustand'
 import type { CellCoord, CellKey, GameStoreState } from '@/types'
 import { STAGES } from '@/lib/stages'
 import { toggleQueen, isSolved, computeInvalidationSet } from '@/lib/board-state'
+import { useSettingsStore } from '@/stores/settings-store'
 
 export const useGameStore = create<GameStoreState>((set, get) => ({
   stageId: '',
@@ -12,7 +13,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
   isNewRecord: false,
   manualMarks: [],
   autoMarksByQueen: {},
-  autoMarkEnabled: false,
+  autoMarkEnabled: true,
 
   loadStage(stageId: string) {
     set({
@@ -24,7 +25,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       isNewRecord: false,
       manualMarks: [],
       autoMarksByQueen: {},
-      autoMarkEnabled: false,
+      autoMarkEnabled: useSettingsStore.getState().autoMarkEnabled,
     })
   },
 
@@ -69,7 +70,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       const newManualMarks = state.manualMarks.filter((k) => k !== key)
       const newQueens = [...state.queens, { row: coord.row, col: coord.col }]
 
-      // Apply auto-marks for the newly placed queen if toggle is on
+      // Apply auto-marks for the newly placed queen if auto-mark is enabled
       let newAutoMarksByQueen = state.autoMarksByQueen
       if (state.autoMarkEnabled) {
         const stage = STAGES[state.stageId]
@@ -110,30 +111,6 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     if (Object.values(state.autoMarksByQueen).some((cells) => cells.includes(key))) return
 
     set({ manualMarks: [...state.manualMarks, key] })
-  },
-
-  toggleAutoMark() {
-    const state = get()
-    const newEnabled = !state.autoMarkEnabled
-
-    if (newEnabled) {
-      // Retroactively apply auto-marks for all currently placed queens
-      const stage = STAGES[state.stageId]
-      if (stage) {
-        const newAutoMarksByQueen: Record<string, CellKey[]> = {}
-        for (const queen of state.queens) {
-          const qKey: CellKey = `${queen.row}:${queen.col}`
-          const invalidCells = computeInvalidationSet(queen, stage)
-          newAutoMarksByQueen[qKey] = invalidCells.map(
-            (c) => `${c.row}:${c.col}` as CellKey,
-          )
-        }
-        set({ autoMarkEnabled: true, autoMarksByQueen: newAutoMarksByQueen })
-        return
-      }
-    }
-
-    set({ autoMarkEnabled: newEnabled })
   },
 
   restart() {

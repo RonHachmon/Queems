@@ -1,5 +1,6 @@
 import { describe, it, expect, beforeEach } from 'vitest'
 import { useGameStore } from '@/stores/game-store'
+import { useSettingsStore } from '@/stores/settings-store'
 import type { CellKey } from '@/types'
 
 // Reset the store to a clean empty board before each test.
@@ -17,6 +18,20 @@ function resetStore() {
     autoMarkEnabled: false,
   })
 }
+
+describe('loadStage', () => {
+  it('initializes autoMarkEnabled from the settings store when setting is ON', () => {
+    useSettingsStore.setState({ autoMarkEnabled: true })
+    useGameStore.getState().loadStage('stage-1')
+    expect(useGameStore.getState().autoMarkEnabled).toBe(true)
+  })
+
+  it('initializes autoMarkEnabled from the settings store when setting is OFF', () => {
+    useSettingsStore.setState({ autoMarkEnabled: false })
+    useGameStore.getState().loadStage('stage-1')
+    expect(useGameStore.getState().autoMarkEnabled).toBe(false)
+  })
+})
 
 describe('addManualMark', () => {
   beforeEach(() => {

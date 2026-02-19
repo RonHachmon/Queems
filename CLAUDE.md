@@ -88,6 +88,7 @@ confirmed RED before the corresponding implementation is written.
 
 ## Recent Changes
 
+- 006-settings-automark: Settings tab on Stage Select — Auto-mark toggle moved from PuzzlePage, persisted via `queems-settings` (localStorage), new `settings-store.ts`, default ON
 - 003-drag-mark-x: Click-and-drag X marking — `useDragMark` hook, `addManualMark` store action, Cell/Board drag props
 - 002-mark-cells: Three-state cell cycle (empty → X → queen), Auto-Mark toggle, `computeInvalidationSet` pure fn
 - 001-queens-mock: Initial project — full Vite SPA + React 19 + TypeScript 5 stack

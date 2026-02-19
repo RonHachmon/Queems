@@ -64,7 +64,6 @@ export interface GameStoreState extends GameSession {
    * no auto-mark). Calling on a non-empty cell is a no-op. Used by drag marking.
    */
   addManualMark: (coord: CellCoord) => void
-  toggleAutoMark: () => void
   restart: () => void
   tick: () => void
   markSolved: (elapsedSeconds: number, isNewRecord: boolean) => void
@@ -76,6 +75,16 @@ export interface BestTimesState {
   bestTimes: Record<string, number>
   saveBestTime: (stageId: string, seconds: number) => void
   getBestTime: (stageId: string) => number | undefined
+}
+
+// ─── App Settings (persisted Zustand store) ──────────────────────────────────
+
+export interface AppSettings {
+  autoMarkEnabled: boolean
+}
+
+export interface SettingsState extends AppSettings {
+  setAutoMark: (value: boolean) => void
 }
 
 // ─── Pure function type aliases ───────────────────────────────────────────────
