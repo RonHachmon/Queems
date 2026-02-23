@@ -1,6 +1,63 @@
 import type { Stage } from '@/types'
 
 export const feb2026: Stage[] = [
+    {
+    id: '23-02',
+    size: 7,
+    grid: [
+    ['red'   , 'red'   , 'red'   , 'red'   , 'red'   , 'red'   , 'red'   ],
+    ['orange', 'orange', 'red'   , 'red'   , 'red'   , 'red'   , 'red'   ],
+    ['orange', 'grey'  , 'grey'  , 'grey'  , 'grey'  , 'purple', 'purple'],
+    ['yellow', 'yellow', 'grey'  , 'green' , 'grey'  , 'purple', 'purple'],
+    ['yellow', 'yellow', 'grey'  , 'grey'  , 'grey'  , 'grey'  , 'purple'],
+    ['yellow', 'blue'  , 'blue'  , 'blue'  , 'blue'  , 'purple', 'purple'],
+    ['blue'  , 'blue'  , 'blue'  , 'blue'  , 'blue'  , 'blue'  , 'blue'  ] 
+  ],
+  },
+  {
+    id: '22-02',
+    size: 9,
+    grid: [
+    ['purple', 'purple', 'pink'  , 'pink'  , 'pink'  , 'pink'  , 'pink'  , 'blue'  , 'blue'  ],
+    ['purple', 'pink'  , 'pink'  , 'green' , 'green' , 'green' , 'green' , 'green' , 'blue'  ],
+    ['grey'  , 'pink'  , 'pink'  , 'brown' , 'brown' , 'green' , 'green' , 'green' , 'blue'  ],
+    ['grey'  , 'pink'  , 'brown' , 'brown' , 'green' , 'green' , 'green' , 'green' , 'yellow'],
+    ['grey'  , 'grey'  , 'grey'  , 'green' , 'green' , 'green' , 'red'   , 'green' , 'yellow'],
+    ['orange', 'orange', 'green' , 'green' , 'green' , 'red'   , 'red'   , 'green' , 'yellow'],
+    ['orange', 'green' , 'green' , 'green' , 'red'   , 'red'   , 'red'   , 'yellow', 'yellow'],
+    ['orange', 'green' , 'green' , 'red'   , 'red'   , 'red'   , 'red'   , 'red'   , 'yellow'],
+    ['orange', 'orange', 'orange', 'orange', 'red'   , 'yellow', 'yellow', 'yellow', 'yellow']
+  ],
+  },
+    {
+    id: '21-02',
+    size: 9,
+    grid: [
+    ['blue'  , 'blue'  , 'blue'  , 'blue'  , 'red'   , 'red'   , 'red'   , 'red'   , 'purple'],
+    ['blue'  , 'blue'  , 'blue'  , 'blue'  , 'red'   , 'blue'  , 'green' , 'red'   , 'purple'],
+    ['blue'  , 'grey'  , 'grey'  , 'blue'  , 'blue'  , 'blue'  , 'green' , 'red'   , 'purple'],
+    ['grey'  , 'grey'  , 'grey'  , 'grey'  , 'blue'  , 'red'   , 'red'   , 'red'   , 'purple'],
+    ['grey'  , 'orange', 'orange', 'grey'  , 'blue'  , 'red'   , 'purple', 'purple', 'purple'],
+    ['grey'  , 'yellow', 'orange', 'grey'  , 'blue'  , 'red'   , 'purple', 'purple', 'red'   ],
+    ['grey'  , 'yellow', 'yellow', 'grey'  , 'pink'  , 'red'   , 'red'   , 'red'   , 'red'   ],
+    ['grey'  , 'grey'  , 'grey'  , 'grey'  , 'pink'  , 'pink'  , 'pink'  , 'pink'  , 'pink'  ],
+    ['brown' , 'grey'  , 'grey'  , 'pink'  , 'pink'  , 'pink'  , 'pink'  , 'pink'  , 'pink'  ] 
+  ],
+  },
+  {
+      id: '20-02',
+      size: 8,
+      grid: [
+      ['purple', 'purple', 'purple', 'orange', 'blue'  , 'blue'  , 'blue'  , 'blue'  ],
+      ['purple', 'green' , 'purple', 'orange', 'blue'  , 'orange', 'orange', 'blue'  ],
+      ['green' , 'green' , 'purple', 'orange', 'orange', 'orange', 'orange', 'blue'  ],
+      ['green' , 'purple', 'purple', 'orange', 'orange', 'blue'  , 'blue'  , 'blue'  ],
+      ['green' , 'purple', 'grey'  , 'orange', 'grey'  , 'blue'  , 'red'   , 'red'   ],
+      ['green' , 'yellow', 'grey'  , 'grey'  , 'grey'  , 'blue'  , 'red'   , 'red'   ],
+      ['green' , 'grey'  , 'grey'  , 'grey'  , 'grey'  , 'brown' , 'red'   , 'red'   ],
+      ['green' , 'green' , 'green' , 'green' , 'green' , 'green' , 'red'   , 'red'   ]
+    ],
+  },
   {
     id: '19-02',
     size: 9,
