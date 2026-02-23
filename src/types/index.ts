@@ -64,7 +64,7 @@ export interface GameStoreState extends GameSession {
    * no auto-mark). Calling on a non-empty cell is a no-op. Used by drag marking.
    */
   addManualMark: (coord: CellCoord) => void
-  restart: () => void
+  restart: (hardReset: boolean) => void
   tick: () => void
   markSolved: (elapsedSeconds: number, isNewRecord: boolean) => void
 }

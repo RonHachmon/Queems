@@ -126,7 +126,7 @@ export default function PuzzlePage() {
 
         <button
           type="button"
-          onClick={restart}
+          onClick={() => restart(false)}
           className="flex items-center gap-1 text-gray-500 hover:text-gray-800 transition-colors"
           aria-label="Restart puzzle"
         >
@@ -171,7 +171,7 @@ export default function PuzzlePage() {
         elapsedSeconds={elapsedSeconds}
         isNewRecord={isNewRecord}
         previousBest={previousBest}
-        onPlayAgain={restart}
+        onPlayAgain={() => restart(true)}
         onBackToMenu={() => navigate('/')}
       />
     </motion.div>

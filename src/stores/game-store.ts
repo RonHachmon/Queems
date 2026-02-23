@@ -113,13 +113,14 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     set({ manualMarks: [...state.manualMarks, key] })
   },
 
-  restart() {
+  restart(hardReset: boolean) {
     set({
       queens: [],
       isSolved: false,
       isNewRecord: false,
       manualMarks: [],
       autoMarksByQueen: {},
+      ...(hardReset && { elapsedSeconds: 0, timerStartedAt: Date.now() }),
     })
   },
 
