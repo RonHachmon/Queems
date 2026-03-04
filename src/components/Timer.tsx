@@ -10,7 +10,7 @@ function formatTime(seconds: number): string {
 
 export default function Timer({ elapsedSeconds, isRunning }: TimerProps) {
   return (
-    <div className="flex items-center gap-2 text-gray-700 font-mono text-xl font-bold">
+    <div className="flex items-center gap-2 text-gray-700 dark:text-gray-300 font-mono text-xl font-bold">
       <TimerIcon
         className={cn('w-8 h-8', isRunning && 'text-green-600 animate-pulse')}
         strokeWidth={2}

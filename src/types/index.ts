@@ -100,10 +100,12 @@ export interface BestTimesState {
 
 export interface AppSettings {
   autoMarkEnabled: boolean
+  darkModeEnabled: boolean
 }
 
 export interface SettingsState extends AppSettings {
   setAutoMark: (value: boolean) => void
+  setDarkMode: (value: boolean) => void
 }
 
 // ─── Pure function type aliases ───────────────────────────────────────────────

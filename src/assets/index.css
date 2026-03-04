@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@variant dark (&:where(.dark, .dark *));
+
 @theme {
   /* Board region colors — one per RegionId used across all stages */
   --color-region-blue:   #8bb6ff;
