@@ -33,15 +33,15 @@ export default function StageSelectPage() {
       initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0 }}
-      className="flex flex-col items-center min-h-screen bg-gray-50 dark:bg-gray-900 px-4 sm:px-8 py-10 gap-8"
+      className="flex flex-col items-center min-h-screen bg-surface px-4 sm:px-8 py-10 gap-8"
     >
       {/* Header */}
       <div className="flex flex-col items-center gap-2">
         <div className="flex items-center gap-2">
           <Crown className="w-8 h-8 text-amber-400" strokeWidth={1.5} />
-          <h1 className="text-3xl font-extrabold tracking-tight text-gray-900 dark:text-gray-100">Queems</h1>
+          <h1 className="text-3xl font-extrabold tracking-tight text-text-primary">Queems</h1>
         </div>
-        <p className="text-sm text-gray-500 dark:text-gray-400">
+        <p className="text-sm text-text-muted">
           It's Queens, but with an <span className="text-2xl font-extrabold text-amber-400">m</span>.
         </p>
       </div>
@@ -50,7 +50,7 @@ export default function StageSelectPage() {
       <div
         role="tablist"
         aria-label="Page sections"
-        className="flex items-center gap-1 bg-gray-100 dark:bg-gray-800 rounded-full p-1"
+        className="flex items-center gap-1 bg-surface-raised rounded-full p-1"
       >
         <button
           type="button"
@@ -63,7 +63,7 @@ export default function StageSelectPage() {
             'flex items-center gap-1.5 px-4 py-1.5 rounded-full text-sm font-medium transition-colors duration-150',
             activeTab === 'stages'
               ? 'bg-amber-400 text-white shadow-sm'
-              : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200',
+              : 'text-text-muted hover:text-text-secondary',
           )}
         >
           <LayoutGrid className="w-3.5 h-3.5" strokeWidth={2} />
@@ -81,7 +81,7 @@ export default function StageSelectPage() {
             'flex items-center gap-1.5 px-4 py-1.5 rounded-full text-sm font-medium transition-colors duration-150',
             activeTab === 'settings'
               ? 'bg-amber-400 text-white shadow-sm'
-              : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200',
+              : 'text-text-muted hover:text-text-secondary',
           )}
         >
           <Settings className="w-3.5 h-3.5" strokeWidth={2} />
@@ -126,12 +126,12 @@ export default function StageSelectPage() {
           aria-labelledby="tab-settings"
           className="w-full max-w-sm"
         >
-          <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 divide-y divide-gray-100 dark:divide-gray-700">
+          <div className="bg-surface-card rounded-2xl shadow-sm border border-border divide-y divide-divider">
             {/* Setting row — Auto-mark */}
             <div className="flex items-center justify-between gap-4 px-5 py-4 min-h-[64px]">
               <div className="flex flex-col gap-0.5">
-                <span className="text-sm font-medium text-gray-800 dark:text-gray-200">Auto-mark invalid cells</span>
-                <span className="text-xs text-gray-400 dark:text-gray-500 leading-snug">
+                <span className="text-sm font-medium text-text-primary">Auto-mark invalid cells</span>
+                <span className="text-xs text-text-faint leading-snug">
                   Marks cells that would break the rules when you place a queen
                 </span>
               </div>
@@ -145,7 +145,7 @@ export default function StageSelectPage() {
                 onClick={() => setAutoMark(!autoMarkEnabled)}
                 className={cn(
                   'relative flex-shrink-0 inline-flex h-6 w-11 items-center rounded-full transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-400',
-                  autoMarkEnabled ? 'bg-amber-400' : 'bg-gray-200 dark:bg-gray-600',
+                  autoMarkEnabled ? 'bg-amber-400' : 'bg-surface-input',
                 )}
               >
                 <span
@@ -160,8 +160,8 @@ export default function StageSelectPage() {
             {/* Setting row — Dark mode */}
             <div className="flex items-center justify-between gap-4 px-5 py-4 min-h-[64px]">
               <div className="flex flex-col gap-0.5">
-                <span className="text-sm font-medium text-gray-800 dark:text-gray-200">Dark mode</span>
-                <span className="text-xs text-gray-400 dark:text-gray-500 leading-snug">
+                <span className="text-sm font-medium text-text-primary">Dark mode</span>
+                <span className="text-xs text-text-faint leading-snug">
                   Switch to a darker color scheme
                 </span>
               </div>
@@ -175,7 +175,7 @@ export default function StageSelectPage() {
                 onClick={() => setDarkMode(!darkModeEnabled)}
                 className={cn(
                   'relative flex-shrink-0 inline-flex h-6 w-11 items-center rounded-full transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-400',
-                  darkModeEnabled ? 'bg-amber-400' : 'bg-gray-200 dark:bg-gray-600',
+                  darkModeEnabled ? 'bg-amber-400' : 'bg-surface-input',
                 )}
               >
                 <span
@@ -188,7 +188,7 @@ export default function StageSelectPage() {
             </div>
           </div>
 
-          <p className="mt-3 text-xs text-gray-400 dark:text-gray-500 text-center px-2">
+          <p className="mt-3 text-xs text-text-faint text-center px-2">
             Settings are saved automatically
           </p>
         </div>

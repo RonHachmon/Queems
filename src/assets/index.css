@@ -13,4 +13,38 @@
   --color-region-grey:   #dbdbdb;
   --color-region-brown:  #b0a994;
   --color-region-pink:   #dc95b7;
+
+  /* ── Semantic surface tokens (light mode defaults) ── */
+  --color-surface:        #f9fafb; /* gray-50  — page background    */
+  --color-surface-card:   #ffffff; /* white    — cards, modals      */
+  --color-surface-raised: #f3f4f6; /* gray-100 — tab bar, hover bg  */
+  --color-surface-input:  #e5e7eb; /* gray-200 — toggle off-state   */
+  --color-surface-muted:  #e5e7eb; /* gray-200 — disabled controls  */
+
+  /* ── Semantic text tokens ── */
+  --color-text-primary:   #111827; /* gray-900 */
+  --color-text-secondary: #374151; /* gray-700 */
+  --color-text-muted:     #6b7280; /* gray-500 */
+  --color-text-faint:     #9ca3af; /* gray-400 */
+
+  /* ── Semantic border tokens ── */
+  --color-border:         #f3f4f6; /* gray-100 */
+  --color-divider:        #f3f4f6; /* gray-100 */
+}
+
+/* Dark mode overrides — flip every semantic token, region colors stay */
+.dark {
+  --color-surface:        #111827; /* gray-900 */
+  --color-surface-card:   #1f2937; /* gray-800 */
+  --color-surface-raised: #1f2937; /* gray-800 */
+  --color-surface-input:  #4b5563; /* gray-600 */
+  --color-surface-muted:  #4b5563; /* gray-600 */
+
+  --color-text-primary:   #f3f4f6; /* gray-100 */
+  --color-text-secondary: #d1d5db; /* gray-300 */
+  --color-text-muted:     #9ca3af; /* gray-400 */
+  --color-text-faint:     #6b7280; /* gray-500 */
+
+  --color-border:         #374151; /* gray-700 */
+  --color-divider:        #374151; /* gray-700 */
 }
