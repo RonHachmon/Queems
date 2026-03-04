@@ -37,6 +37,13 @@ export interface Stage {
   grid: RegionId[][]
 }
 
+// ─── Undo History ─────────────────────────────────────────────────────────────
+
+export type UndoAction =
+  | { type: 'mark-batch'; keys: CellKey[] }
+  | { type: 'queen-placed'; queen: Queen; queenKey: CellKey; autoMarks: CellKey[]; priorMark: CellKey | null }
+  | { type: 'queen-removed'; queen: Queen; queenKey: CellKey; autoMarks: CellKey[] }
+
 // ─── Game Session (ephemeral Zustand store) ───────────────────────────────────
 
 export interface GameSession {
@@ -52,6 +59,12 @@ export interface GameSession {
   autoMarksByQueen: Record<string, CellKey[]>
   /** Whether the Auto-Mark toggle is on */
   autoMarkEnabled: boolean
+  /** Stack of reversible user actions; last element is the most recent */
+  actionHistory: UndoAction[]
+  /** True while a drag gesture is in progress (for batching marks) */
+  isBatching: boolean
+  /** Accumulates mark keys during an active drag batch */
+  batchBuffer: CellKey[]
 }
 
 export interface GameStoreState extends GameSession {
@@ -64,6 +77,12 @@ export interface GameStoreState extends GameSession {
    * no auto-mark). Calling on a non-empty cell is a no-op. Used by drag marking.
    */
   addManualMark: (coord: CellCoord) => void
+  /** Reverses the most recent action in actionHistory; no-op if empty or solved */
+  undo: () => void
+  /** Called on drag mousedown — marks start of a batch session */
+  startMarkBatch: () => void
+  /** Called on drag mouseup — commits accumulated batch as a single history entry */
+  commitMarkBatch: () => void
   restart: (hardReset: boolean) => void
   tick: () => void
   markSolved: (elapsedSeconds: number, isNewRecord: boolean) => void

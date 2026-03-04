@@ -1,7 +1,8 @@
 import { useEffect, useMemo, useRef } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { RotateCcw, ChevronLeft } from 'lucide-react'
+import { RotateCcw, ChevronLeft, Undo2 } from 'lucide-react'
+import { cn } from '@/lib/cn'
 import { useGameStore } from '@/stores/game-store'
 import { useBestTimesStore } from '@/stores/best-times-store'
 import { useDragMark } from '@/hooks/useDragMark'
@@ -25,15 +26,24 @@ export default function PuzzlePage() {
     isNewRecord,
     manualMarks,
     autoMarksByQueen,
+    actionHistory,
     loadStage,
     cycleCell,
     addManualMark,
+    undo,
+    startMarkBatch,
+    commitMarkBatch,
     restart,
     tick,
     markSolved,
   } = useGameStore()
 
-  const { dragHandlers, isDragGesture } = useDragMark({ onMarkCell: addManualMark, disabled: isSolved })
+  const { dragHandlers, isDragGesture } = useDragMark({
+    onMarkCell: addManualMark,
+    onBatchStart: startMarkBatch,
+    onBatchCommit: commitMarkBatch,
+    disabled: isSolved,
+  })
 
   const isStageReady = loadedStageId === stageId
 
@@ -122,21 +132,16 @@ export default function PuzzlePage() {
           <span className="text-sm font-medium">Menu</span>
         </button>
 
-        <h1 className="text-lg font-bold text-gray-800">{stage.id}</h1>
+        <Timer elapsedSeconds={elapsedSeconds} isRunning={timerRunning} />
 
-        <button
-          type="button"
-          onClick={() => restart(false)}
-          className="flex items-center gap-1 text-gray-500 hover:text-gray-800 transition-colors"
-          aria-label="Restart puzzle"
-        >
-          <RotateCcw className="w-4 h-4" strokeWidth={2.5} />
-          <span className="text-sm font-medium">Reset</span>
-        </button>
+        {/* <h1 className="text-lg font-bold text-gray-800">{stage.id}</h1> */}
+
+        {/* Spacer to keep title centered */}
+        <div className="w-14" />
       </div>
 
       {/* Timer */}
-      <Timer elapsedSeconds={elapsedSeconds} isRunning={timerRunning} />
+      
 
       {/* Board */}
       <Board
@@ -149,6 +154,37 @@ export default function PuzzlePage() {
         onCellMouseEnter={dragHandlers.onCellMouseEnter}
         disabled={isSolved}
       />
+
+      {/* Bottom controls: Undo + Reset */}
+      <div className="flex gap-6 w-full max-w-sm justify-center">
+        <button
+          type="button"
+          onClick={undo}
+          disabled={actionHistory.length === 0 || isSolved}
+          aria-label="Undo last action"
+          className={cn(
+            'flex items-center gap-1 text-gray-500 hover:text-gray-800 transition-colors',
+            (actionHistory.length === 0 || isSolved) && 'opacity-40 cursor-not-allowed pointer-events-none',
+          )}
+        >
+          <Undo2 className="w-4 h-4" strokeWidth={2.5} />
+          <span className="text-sm font-medium">Undo</span>
+        </button>
+
+        <button
+          type="button"
+          onClick={() => restart(false)}
+          disabled={isSolved}
+          aria-label="Restart puzzle"
+          className={cn(
+            'flex items-center gap-1 text-gray-500 hover:text-gray-800 transition-colors',
+            isSolved && 'opacity-40 cursor-not-allowed pointer-events-none',
+          )}
+        >
+          <RotateCcw className="w-4 h-4" strokeWidth={2.5} />
+          <span className="text-sm font-medium">Reset</span>
+        </button>
+      </div>
 
       {/* Hint */}
       <p className="text-xs text-gray-400 text-center max-w-xs">
