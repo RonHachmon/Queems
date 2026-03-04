@@ -11,6 +11,10 @@ export interface UseDragMarkOptions {
   onMarkCell: (coord: CellCoord) => void
   /** When true the drag session will not start (board is disabled / solved). */
   disabled: boolean
+  /** Called on mousedown to signal the start of a potential drag batch. */
+  onBatchStart?: () => void
+  /** Called on mouseup/touchend to commit the completed drag batch. */
+  onBatchCommit?: () => void
 }
 
 export interface DragHandlers {
@@ -52,7 +56,7 @@ function toCellKey(coord: CellCoord): CellKey {
  * least one cell different from the cell where mousedown fired. Use
  * `isDragGesture()` to suppress the three-state click cycle in that case.
  */
-export function useDragMark({ onMarkCell, disabled }: UseDragMarkOptions): UseDragMarkReturn {
+export function useDragMark({ onMarkCell, disabled, onBatchStart, onBatchCommit }: UseDragMarkOptions): UseDragMarkReturn {
   // ── Session refs (never cause re-renders) ──────────────────────────────────
   const isDragging = useRef(false)
   const startCoord = useRef<CellCoord | null>(null)
@@ -62,19 +66,23 @@ export function useDragMark({ onMarkCell, disabled }: UseDragMarkOptions): UseDr
 
   // ── Global mouseup/touchend: end session when button/finger released anywhere ─
   useEffect(() => {
-    const endSession = () => { isDragging.current = false }
+    const endSession = () => {
+      isDragging.current = false
+      onBatchCommit?.()
+    }
     window.addEventListener('mouseup', endSession)
     window.addEventListener('touchend', endSession)
     return () => {
       window.removeEventListener('mouseup', endSession)
       window.removeEventListener('touchend', endSession)
     }
-  }, [])
+  }, [onBatchCommit])
 
   // ── Handlers ──────────────────────────────────────────────────────────────
 
   function onCellMouseDown(coord: CellCoord) {
     if (disabled) return
+    onBatchStart?.()
     isDragging.current = true
     startCoord.current = coord
     startMarked.current = false

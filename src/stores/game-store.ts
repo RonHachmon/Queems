@@ -14,6 +14,9 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
   manualMarks: [],
   autoMarksByQueen: {},
   autoMarkEnabled: true,
+  actionHistory: [],
+  isBatching: false,
+  batchBuffer: [],
 
   loadStage(stageId: string) {
     set({
@@ -26,6 +29,9 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       manualMarks: [],
       autoMarksByQueen: {},
       autoMarkEnabled: useSettingsStore.getState().autoMarkEnabled,
+      actionHistory: [],
+      isBatching: false,
+      batchBuffer: [],
     })
   },
 
@@ -57,6 +63,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
 
     if (hasQueen) {
       // Queen → Empty: remove queen and its auto-marks
+      const prevAutoMarks = state.autoMarksByQueen[key] ?? []
       const newQueens = state.queens.filter(
         (q) => !(q.row === coord.row && q.col === coord.col),
       )
@@ -64,22 +71,30 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       delete newAutoMarksByQueen[key]
       const stage = STAGES[state.stageId]
       const solved = stage ? isSolved(newQueens, stage) : false
-      set({ queens: newQueens, autoMarksByQueen: newAutoMarksByQueen, isSolved: solved })
+      set({
+        queens: newQueens,
+        autoMarksByQueen: newAutoMarksByQueen,
+        isSolved: solved,
+        actionHistory: [
+          ...state.actionHistory,
+          { type: 'queen-removed', queen: { row: coord.row, col: coord.col }, queenKey: key, autoMarks: prevAutoMarks },
+        ],
+      })
     } else if (isMarked) {
       // X-marked → Queen: remove manual mark, place queen
+      const priorMark: CellKey | null = isManuallyMarked ? key : null
       const newManualMarks = state.manualMarks.filter((k) => k !== key)
       const newQueens = [...state.queens, { row: coord.row, col: coord.col }]
 
       // Apply auto-marks for the newly placed queen if auto-mark is enabled
       let newAutoMarksByQueen = state.autoMarksByQueen
+      let computedAutoMarks: CellKey[] = []
       if (state.autoMarkEnabled) {
         const stage = STAGES[state.stageId]
         if (stage) {
           const invalidCells = computeInvalidationSet(coord, stage)
-          newAutoMarksByQueen = {
-            ...state.autoMarksByQueen,
-            [key]: invalidCells.map((c) => `${c.row}:${c.col}` as CellKey),
-          }
+          computedAutoMarks = invalidCells.map((c) => `${c.row}:${c.col}` as CellKey)
+          newAutoMarksByQueen = { ...state.autoMarksByQueen, [key]: computedAutoMarks }
         }
       }
 
@@ -90,10 +105,17 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
         manualMarks: newManualMarks,
         autoMarksByQueen: newAutoMarksByQueen,
         isSolved: solved,
+        actionHistory: [
+          ...state.actionHistory,
+          { type: 'queen-placed', queen: { row: coord.row, col: coord.col }, queenKey: key, autoMarks: computedAutoMarks, priorMark },
+        ],
       })
     } else {
       // Empty → X-marked
-      set({ manualMarks: [...state.manualMarks, key] })
+      set({
+        manualMarks: [...state.manualMarks, key],
+        actionHistory: [...state.actionHistory, { type: 'mark-batch', keys: [key] }],
+      })
     }
   },
 
@@ -110,7 +132,74 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     // No-op if auto-marked by any queen
     if (Object.values(state.autoMarksByQueen).some((cells) => cells.includes(key))) return
 
-    set({ manualMarks: [...state.manualMarks, key] })
+    set({
+      manualMarks: [...state.manualMarks, key],
+      ...(state.isBatching && { batchBuffer: [...state.batchBuffer, key] }),
+    })
+  },
+
+  undo() {
+    const state = get()
+    if (state.isSolved || state.actionHistory.length === 0) return
+
+    const last = state.actionHistory[state.actionHistory.length - 1]
+    const newHistory = state.actionHistory.slice(0, -1)
+
+    switch (last.type) {
+      case 'mark-batch':
+        set({
+          manualMarks: state.manualMarks.filter((k) => !last.keys.includes(k)),
+          actionHistory: newHistory,
+        })
+        break
+      case 'queen-placed': {
+        const newQueens = state.queens.filter(
+          (q) => !(q.row === last.queen.row && q.col === last.queen.col),
+        )
+        const newAutoMarksByQueen = { ...state.autoMarksByQueen }
+        delete newAutoMarksByQueen[last.queenKey]
+        const newManualMarks = last.priorMark
+          ? [...state.manualMarks, last.priorMark]
+          : state.manualMarks
+        const stage = STAGES[state.stageId]
+        set({
+          queens: newQueens,
+          autoMarksByQueen: newAutoMarksByQueen,
+          manualMarks: newManualMarks,
+          isSolved: stage ? isSolved(newQueens, stage) : false,
+          actionHistory: newHistory,
+        })
+        break
+      }
+      case 'queen-removed': {
+        const newQueens = [...state.queens, last.queen]
+        const newAutoMarksByQueen = last.autoMarks.length > 0
+          ? { ...state.autoMarksByQueen, [last.queenKey]: last.autoMarks }
+          : state.autoMarksByQueen
+        const stage = STAGES[state.stageId]
+        set({
+          queens: newQueens,
+          autoMarksByQueen: newAutoMarksByQueen,
+          isSolved: stage ? isSolved(newQueens, stage) : false,
+          actionHistory: newHistory,
+        })
+        break
+      }
+    }
+  },
+
+  startMarkBatch() {
+    set({ isBatching: true, batchBuffer: [] })
+  },
+
+  commitMarkBatch() {
+    const state = get()
+    if (state.batchBuffer.length > 0) {
+      set({
+        actionHistory: [...state.actionHistory, { type: 'mark-batch', keys: [...state.batchBuffer] }],
+      })
+    }
+    set({ isBatching: false, batchBuffer: [] })
   },
 
   restart(hardReset: boolean) {
@@ -120,6 +209,9 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       isNewRecord: false,
       manualMarks: [],
       autoMarksByQueen: {},
+      actionHistory: [],
+      isBatching: false,
+      batchBuffer: [],
       ...(hardReset && { elapsedSeconds: 0, timerStartedAt: Date.now() }),
     })
   },

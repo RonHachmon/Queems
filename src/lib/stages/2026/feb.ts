@@ -2,6 +2,76 @@ import type { Stage } from '@/types'
 
 export const feb2026: Stage[] = [
     {
+    id: '28-02',
+    size: 9,
+    grid: [
+    ['grey'  , 'red'   , 'brown' , 'brown' , 'red'   , 'red'   , 'yellow', 'yellow', 'red'   ],
+    ['grey'  , 'red'   , 'red'   , 'brown' , 'brown' , 'red'   , 'yellow', 'yellow', 'red'   ],
+    ['grey'  , 'red'   , 'red'   , 'red'   , 'red'   , 'red'   , 'red'   , 'red'   , 'red'   ],
+    ['grey'  , 'red'   , 'purple', 'purple', 'red'   , 'red'   , 'red'   , 'green' , 'green' ],
+    ['pink'  , 'pink'  , 'pink'  , 'purple', 'red'   , 'red'   , 'green' , 'green' , 'pink'  ],
+    ['pink'  , 'pink'  , 'pink'  , 'purple', 'red'   , 'pink'  , 'pink'  , 'pink'  , 'pink'  ],
+    ['orange', 'pink'  , 'pink'  , 'pink'  , 'pink'  , 'pink'  , 'blue'  , 'pink'  , 'pink'  ],
+    ['orange', 'orange', 'orange', 'pink'  , 'pink'  , 'blue'  , 'blue'  , 'pink'  , 'pink'  ],
+    ['pink'  , 'pink'  , 'pink'  , 'pink'  , 'pink'  , 'pink'  , 'blue'  , 'pink'  , 'pink'  ]
+  ],
+  },
+    {
+    id: '27-02',
+    size: 9,
+    grid: [
+    ['purple', 'orange', 'orange', 'orange', 'blue'  , 'blue'  , 'blue'  , 'blue'  , 'green' ],
+    ['purple', 'orange', 'grey'  , 'orange', 'blue'  , 'blue'  , 'red'   , 'blue'  , 'green' ],
+    ['purple', 'orange', 'orange', 'orange', 'blue'  , 'red'   , 'red'   , 'green' , 'green' ],
+    ['yellow', 'yellow', 'orange', 'blue'  , 'blue'  , 'blue'  , 'red'   , 'green' , 'green' ],
+    ['yellow', 'yellow', 'orange', 'orange', 'brown' , 'red'   , 'red'   , 'green' , 'green' ],
+    ['yellow', 'yellow', 'orange', 'brown' , 'brown' , 'brown' , 'red'   , 'green' , 'green' ],
+    ['yellow', 'yellow', 'orange', 'orange', 'brown' , 'red'   , 'red'   , 'red'   , 'green' ],
+    ['yellow', 'yellow', 'orange', 'brown' , 'brown' , 'red'   , 'pink'  , 'red'   , 'green' ],
+    ['yellow', 'yellow', 'yellow', 'yellow', 'brown' , 'red'   , 'red'   , 'red'   , 'green' ]
+  ],
+  },
+    {
+    id: '26-02',
+    size: 7,
+    grid: [
+    ['purple', 'purple', 'purple', 'purple', 'purple', 'purple', 'purple'],
+    ['orange', 'orange', 'purple', 'purple', 'purple', 'blue'  , 'blue'  ],
+    ['orange', 'green' , 'green' , 'grey'  , 'red'   , 'red'   , 'blue'  ],
+    ['orange', 'green' , 'grey'  , 'grey'  , 'grey'  , 'red'   , 'blue'  ],
+    ['orange', 'green' , 'green' , 'grey'  , 'red'   , 'red'   , 'blue'  ],
+    ['orange', 'orange', 'grey'  , 'grey'  , 'grey'  , 'blue'  , 'blue'  ],
+    ['yellow', 'grey'  , 'grey'  , 'grey'  , 'grey'  , 'grey'  , 'grey'  ]
+  ],
+  },
+    {
+    id: '25-02',
+    size: 8,
+    grid: [
+    ['green' , 'green' , 'brown' , 'brown' , 'brown' , 'brown' , 'brown' , 'brown' ],
+    ['green' , 'green' , 'brown' , 'brown' , 'brown' , 'blue'  , 'blue'  , 'brown' ],
+    ['brown' , 'brown' , 'brown' , 'orange', 'orange', 'blue'  , 'blue'  , 'brown' ],
+    ['brown' , 'purple', 'purple', 'orange', 'orange', 'brown' , 'brown' , 'brown' ],
+    ['brown' , 'purple', 'purple', 'brown' , 'brown' , 'brown' , 'brown' , 'brown' ],
+    ['brown' , 'brown' , 'yellow', 'yellow', 'brown' , 'brown' , 'brown' , 'brown' ],
+    ['brown' , 'brown' , 'yellow', 'yellow', 'brown' , 'brown' , 'red'   , 'red'   ],
+    ['grey'  , 'brown' , 'brown' , 'brown' , 'brown' , 'brown' , 'red'   , 'red'   ] 
+  ],
+  },
+  {
+    id: '24-02',
+    size: 7,
+    grid: [
+    ['purple', 'green' , 'orange', 'orange', 'purple', 'blue'  , 'blue'  ],
+    ['purple', 'green' , 'green' , 'green' , 'purple', 'blue'  , 'blue'  ],
+    ['purple', 'purple', 'purple', 'purple', 'purple', 'blue'  , 'blue'  ],
+    ['blue'  , 'blue'  , 'blue'  , 'blue'  , 'blue'  , 'blue'  , 'blue'  ],
+    ['blue'  , 'grey'  , 'red'   , 'red'   , 'red'   , 'red'   , 'red'   ],
+    ['blue'  , 'grey'  , 'red'   , 'yellow', 'red'   , 'yellow', 'red'   ],
+    ['grey'  , 'grey'  , 'red'   , 'yellow', 'yellow', 'yellow', 'red'   ]
+  ],
+  },
+    {
     id: '23-02',
     size: 7,
     grid: [
