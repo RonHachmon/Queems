@@ -6,7 +6,10 @@ import { STAGES, STAGE_IDS } from '@/lib/stages'
 import { useBestTimesStore } from '@/stores/best-times-store'
 import { useSettingsStore } from '@/stores/settings-store'
 import StageCard from '@/components/StageCard'
+import Pagination from '@/components/Pagination'
 import { cn } from '@/lib/cn'
+
+const PAGE_SIZE = 12
 
 type ActiveTab = 'stages' | 'settings'
 
@@ -15,6 +18,15 @@ export default function StageSelectPage() {
   const { bestTimes } = useBestTimesStore()
   const { autoMarkEnabled, setAutoMark } = useSettingsStore()
   const [activeTab, setActiveTab] = useState<ActiveTab>('stages')
+  const [currentPage, setCurrentPage] = useState(1)
+
+  const totalPages = Math.ceil(STAGE_IDS.length / PAGE_SIZE)
+  const visibleIds = STAGE_IDS.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE)
+
+  function handleTabChange(tab: ActiveTab) {
+    setActiveTab(tab)
+    setCurrentPage(1)
+  }
 
   return (
     <motion.div
@@ -46,7 +58,7 @@ export default function StageSelectPage() {
           aria-selected={activeTab === 'stages'}
           aria-controls="panel-stages"
           id="tab-stages"
-          onClick={() => setActiveTab('stages')}
+          onClick={() => handleTabChange('stages')}
           className={cn(
             'flex items-center gap-1.5 px-4 py-1.5 rounded-full text-sm font-medium transition-colors duration-150',
             activeTab === 'stages'
@@ -64,7 +76,7 @@ export default function StageSelectPage() {
           aria-selected={activeTab === 'settings'}
           aria-controls="panel-settings"
           id="tab-settings"
-          onClick={() => setActiveTab('settings')}
+          onClick={() => handleTabChange('settings')}
           className={cn(
             'flex items-center gap-1.5 px-4 py-1.5 rounded-full text-sm font-medium transition-colors duration-150',
             activeTab === 'settings'
@@ -83,16 +95,27 @@ export default function StageSelectPage() {
           id="panel-stages"
           role="tabpanel"
           aria-labelledby="tab-stages"
-          className="w-full max-w-3xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3"
+          className="flex flex-col items-center gap-4 w-full max-w-3xl"
         >
-          {STAGE_IDS.map((stageId) => (
-            <StageCard
-              key={stageId}
-              stage={STAGES[stageId]}
-              bestTime={bestTimes[stageId]}
-              onSelect={(id) => navigate(`/stage/${id}`)}
-            />
-          ))}
+          <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+            {visibleIds.map((stageId) => (
+              <StageCard
+                key={stageId}
+                stage={STAGES[stageId]}
+                bestTime={bestTimes[stageId]}
+                onSelect={(id) => navigate(`/stage/${id}`)}
+              />
+            ))}
+            {Array.from({ length: PAGE_SIZE - visibleIds.length }, (_, i) => (
+              <div key={`spacer-${i}`} aria-hidden="true" />
+            ))}
+          </div>
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPrev={() => setCurrentPage((p) => p - 1)}
+            onNext={() => setCurrentPage((p) => p + 1)}
+          />
         </div>
       )}
 
