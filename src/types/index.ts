@@ -178,3 +178,10 @@ export interface CompletionModalProps {
   onPlayAgain: () => void
   onBackToMenu: () => void
 }
+
+export interface PaginationProps {
+  currentPage: number
+  totalPages: number
+  onPrev: () => void
+  onNext: () => void
+}
