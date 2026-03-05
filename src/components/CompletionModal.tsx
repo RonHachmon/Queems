@@ -47,19 +47,19 @@ export default function CompletionModal({
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.85, y: 20 }}
             transition={{ type: 'spring', stiffness: 320, damping: 28 }}
-            className="bg-white rounded-2xl shadow-2xl px-8 py-10 flex flex-col items-center gap-5 max-w-xs w-full mx-4"
+            className="bg-surface-card rounded-2xl shadow-2xl px-8 py-10 flex flex-col items-center gap-5 max-w-xs w-full mx-4"
           >
             <div className="flex flex-col items-center gap-2">
               <Trophy className="w-12 h-12 text-amber-400" strokeWidth={1.5} aria-hidden="true" />
-              <h2 className="text-2xl font-bold text-gray-900">Puzzle Solved!</h2>
+              <h2 className="text-2xl font-bold text-text-primary">Puzzle Solved!</h2>
             </div>
 
             <div className="text-center">
-              <p className="text-4xl font-mono font-bold text-gray-800">
+              <p className="text-4xl font-mono font-bold text-text-primary">
                 {formatTime(elapsedSeconds)}
               </p>
               {previousBest !== undefined && !isNewRecord && (
-                <p className="text-sm text-gray-500 mt-1">
+                <p className="text-sm text-text-muted mt-1">
                   Best: {formatTime(previousBest)}
                 </p>
               )}
@@ -83,7 +83,7 @@ export default function CompletionModal({
                 ref={playAgainRef}
                 type="button"
                 onClick={onPlayAgain}
-                className="flex-1 flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-700"
+                className="flex-1 flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-surface-raised hover:bg-surface-muted text-text-secondary font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-text-secondary"
               >
                 <RotateCcw className="w-4 h-4" strokeWidth={2.5} aria-hidden="true" />
                 Play Again
@@ -91,7 +91,7 @@ export default function CompletionModal({
               <button
                 type="button"
                 onClick={onBackToMenu}
-                className="flex-1 flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-gray-900 hover:bg-gray-800 text-white font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                className="flex-1 flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-text-primary hover:opacity-90 text-surface font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
               >
                 <ChevronLeft className="w-4 h-4" strokeWidth={2.5} aria-hidden="true" />
                 Menu

@@ -19,11 +19,11 @@ export default function StageCard({ stage, bestTime, onSelect }: StageCardProps)
       tabIndex={0}
       onKeyDown={(e) => e.key === 'Enter' && onSelect(stage.id)}
       aria-label={`${stage.id}, ${stage.size}×${stage.size} grid${bestTime !== undefined ? `, best time ${formatTime(bestTime)}` : ''}`}
-      className="bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow cursor-pointer px-5 py-4 flex items-center justify-between gap-4 border border-gray-100"
+      className="bg-surface-card rounded-xl shadow-md hover:shadow-lg transition-shadow cursor-pointer px-5 py-4 flex items-center justify-between gap-4 border border-border"
     >
       <div className="flex flex-col gap-0.5">
-        <span className="font-bold text-gray-800 text-base">{stage.id}</span>
-        <span className="text-sm text-gray-400">
+        <span className="font-bold text-text-primary text-base">{stage.id}</span>
+        <span className="text-sm text-text-faint">
           {stage.size}&times;{stage.size} grid
         </span>
       </div>

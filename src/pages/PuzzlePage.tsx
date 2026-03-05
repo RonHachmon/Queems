@@ -87,7 +87,7 @@ export default function PuzzlePage() {
   if (!stage) {
     return (
       <div className="flex flex-col items-center justify-center min-h-screen gap-4">
-        <p className="text-gray-600">Stage not found: {stageId}</p>
+        <p className="text-text-muted">Stage not found: {stageId}</p>
         <button
           type="button"
           onClick={() => navigate('/')}
@@ -118,14 +118,14 @@ export default function PuzzlePage() {
       initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0 }}
-      className="flex flex-col items-center min-h-screen bg-gray-50 px-4 py-8 gap-6"
+      className="flex flex-col items-center min-h-screen bg-surface px-4 py-8 gap-6"
     >
       {/* Header */}
       <div className="w-full max-w-sm flex items-center justify-between">
         <button
           type="button"
           onClick={() => navigate('/')}
-          className="flex items-center gap-1 text-gray-500 hover:text-gray-800 transition-colors"
+          className="flex items-center gap-1 text-text-muted hover:text-text-primary transition-colors"
           aria-label="Back to menu"
         >
           <ChevronLeft className="w-5 h-5" strokeWidth={2.5} />
@@ -163,7 +163,7 @@ export default function PuzzlePage() {
           disabled={actionHistory.length === 0 || isSolved}
           aria-label="Undo last action"
           className={cn(
-            'flex items-center gap-1 text-gray-500 hover:text-gray-800 transition-colors',
+            'flex items-center gap-1 text-text-muted hover:text-text-primary transition-colors',
             (actionHistory.length === 0 || isSolved) && 'opacity-40 cursor-not-allowed pointer-events-none',
           )}
         >
@@ -177,7 +177,7 @@ export default function PuzzlePage() {
           disabled={isSolved}
           aria-label="Restart puzzle"
           className={cn(
-            'flex items-center gap-1 text-gray-500 hover:text-gray-800 transition-colors',
+            'flex items-center gap-1 text-text-muted hover:text-text-primary transition-colors',
             isSolved && 'opacity-40 cursor-not-allowed pointer-events-none',
           )}
         >
@@ -187,7 +187,7 @@ export default function PuzzlePage() {
       </div>
 
       {/* Hint */}
-      <p className="text-xs text-gray-400 text-center max-w-xs">
+      <p className="text-xs text-text-faint text-center max-w-xs">
         Place one queen per region. No two queens may share a row, column, or touch each other.
       </p>
 
