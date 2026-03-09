@@ -2,6 +2,77 @@ import type { Stage } from '@/types'
 
 export const mar2026: Stage[] = [
     {
+    id: '09-03',
+    size: 7,
+    grid: [
+    ['purple', 'purple', 'purple', 'purple', 'purple', 'purple', 'purple'],
+    ['orange', 'orange', 'green' , 'green' , 'green' , 'purple', 'purple'],
+    ['orange', 'blue'  , 'green' , 'grey'  , 'green' , 'purple', 'yellow'],
+    ['orange', 'blue'  , 'green' , 'green' , 'green' , 'purple', 'yellow'],
+    ['orange', 'blue'  , 'red'   , 'red'   , 'green' , 'yellow', 'yellow'],
+    ['orange', 'blue'  , 'green' , 'green' , 'green' , 'yellow', 'yellow'],
+    ['orange', 'blue'  , 'blue'  , 'blue'  , 'blue'  , 'blue'  , 'yellow']
+  ],
+  },
+    {
+    id: '08-03',
+    size: 9,
+    grid: [
+    ['purple', 'purple', 'purple', 'orange', 'orange', 'orange', 'pink'  , 'pink'  , 'pink'  ],
+    ['green' , 'purple', 'orange', 'orange', 'orange', 'orange', 'orange', 'pink'  , 'grey'  ],
+    ['green' , 'purple', 'green' , 'green' , 'orange', 'orange', 'red'   , 'pink'  , 'grey'  ],
+    ['green' , 'purple', 'green' , 'red'   , 'red'   , 'red'   , 'red'   , 'pink'  , 'grey'  ],
+    ['green' , 'green' , 'green' , 'red'   , 'red'   , 'red'   , 'red'   , 'grey'  , 'grey'  ],
+    ['green' , 'yellow', 'red'   , 'red'   , 'red'   , 'red'   , 'red'   , 'brown' , 'grey'  ],
+    ['blue'  , 'yellow', 'red'   , 'red'   , 'red'   , 'red'   , 'red'   , 'brown' , 'grey'  ],
+    ['blue'  , 'yellow', 'red'   , 'red'   , 'red'   , 'red'   , 'red'   , 'brown' , 'grey'  ],
+    ['yellow', 'yellow', 'yellow', 'red'   , 'red'   , 'red'   , 'brown' , 'brown' , 'brown' ]
+  ],
+  },
+  {
+    id: '07-03',
+    size: 8,
+    grid: [
+    ['purple', 'orange', 'blue'  , 'green' , 'grey'  , 'red'   , 'red'   , 'red'   ],
+    ['purple', 'orange', 'blue'  , 'green' , 'grey'  , 'grey'  , 'red'   , 'red'   ],
+    ['purple', 'orange', 'blue'  , 'green' , 'green' , 'yellow', 'yellow', 'red'   ],
+    ['purple', 'orange', 'blue'  , 'blue'  , 'yellow', 'yellow', 'red'   , 'red'   ],
+    ['purple', 'orange', 'orange', 'yellow', 'yellow', 'yellow', 'red'   , 'red'   ],
+    ['purple', 'purple', 'brown' , 'yellow', 'yellow', 'yellow', 'yellow', 'yellow'],
+    ['brown' , 'brown' , 'brown' , 'brown' , 'brown' , 'yellow', 'yellow', 'brown' ],
+    ['brown' , 'brown' , 'brown' , 'brown' , 'brown' , 'brown' , 'brown' , 'brown' ]
+  ],
+  },
+    {
+    id: '06-03',
+    size: 9,
+    grid: [
+    ['yellow', 'yellow', 'yellow', 'pink'  , 'pink'  , 'pink'  , 'pink'  , 'pink'  , 'pink'  ],
+    ['brown' , 'brown' , 'yellow', 'pink'  , 'pink'  , 'pink'  , 'pink'  , 'pink'  , 'pink'  ],
+    ['brown' , 'brown' , 'yellow', 'pink'  , 'pink'  , 'pink'  , 'red'   , 'red'   , 'red'   ],
+    ['pink'  , 'pink'  , 'pink'  , 'pink'  , 'pink'  , 'pink'  , 'grey'  , 'grey'  , 'red'   ],
+    ['pink'  , 'purple', 'purple', 'orange', 'pink'  , 'pink'  , 'grey'  , 'grey'  , 'grey'  ],
+    ['pink'  , 'orange', 'purple', 'orange', 'pink'  , 'pink'  , 'pink'  , 'pink'  , 'pink'  ],
+    ['pink'  , 'orange', 'orange', 'orange', 'green' , 'green' , 'blue'  , 'pink'  , 'pink'  ],
+    ['pink'  , 'pink'  , 'pink'  , 'pink'  , 'green' , 'green' , 'blue'  , 'pink'  , 'pink'  ],
+    ['pink'  , 'pink'  , 'pink'  , 'pink'  , 'blue'  , 'blue'  , 'blue'  , 'pink'  , 'pink'  ] 
+  ],
+  },
+    {
+    id: '05-03',
+    size: 8,
+    grid: [
+    ['purple', 'purple', 'purple', 'purple', 'purple', 'purple', 'purple', 'purple'],
+    ['purple', 'orange', 'blue'  , 'blue'  , 'blue'  , 'blue'  , 'blue'  , 'purple'],
+    ['purple', 'orange', 'blue'  , 'blue'  , 'blue'  , 'blue'  , 'green' , 'purple'],
+    ['grey'  , 'grey'  , 'grey'  , 'blue'  , 'blue'  , 'blue'  , 'green' , 'purple'],
+    ['red'   , 'grey'  , 'blue'  , 'blue'  , 'blue'  , 'green' , 'green' , 'green' ],
+    ['red'   , 'grey'  , 'blue'  , 'blue'  , 'blue'  , 'yellow', 'brown' , 'yellow'],
+    ['red'   , 'red'   , 'red'   , 'red'   , 'yellow', 'yellow', 'brown' , 'yellow'],
+    ['red'   , 'red'   , 'red'   , 'red'   , 'yellow', 'yellow', 'yellow', 'yellow']
+  ],
+  },
+    {
     id: '04-03',
     size: 8,
     grid: [
