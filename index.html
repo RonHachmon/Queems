@@ -50,9 +50,13 @@
   "datePublished": "2026-02-01"
 }
     </script>
+    <script>
+      try{var s=JSON.parse(localStorage.getItem('queems-settings')||'{}');
+      if(s.state&&s.state.darkModeEnabled)document.documentElement.classList.add('dark')}catch(e){}
+    </script>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root"><!--app-html--></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

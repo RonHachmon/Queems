@@ -1,8 +1,8 @@
 [build]
   command = "pnpm build"
-  publish = "dist"
+  publish = "dist/client"
 
-# SPA fallback — all routes served by index.html (React Router handles them)
+# SPA fallback — prerendered files take priority over this redirect
 [[redirects]]
   from = "/*"
   to = "/index.html"
