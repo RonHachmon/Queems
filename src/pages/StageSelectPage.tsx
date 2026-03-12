@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { Crown, LayoutGrid, Settings } from 'lucide-react'
@@ -15,6 +15,14 @@ type ActiveTab = 'stages' | 'settings'
 
 export default function StageSelectPage() {
   const navigate = useNavigate()
+
+  if (import.meta.env.DEV) console.log('[StageSelectPage] render')
+
+  // Log mount/unmount (dev only)
+  useEffect(() => {
+    if (import.meta.env.DEV) console.log('[StageSelectPage] MOUNTED')
+    return () => { if (import.meta.env.DEV) console.log('[StageSelectPage] UNMOUNTED') }
+  }, [])
   const { bestTimes } = useBestTimesStore()
   const { autoMarkEnabled, setAutoMark, darkModeEnabled, setDarkMode } = useSettingsStore()
   const [activeTab, setActiveTab] = useState<ActiveTab>('stages')

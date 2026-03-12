@@ -1,6 +1,48 @@
 import type { Stage } from '@/types'
 
 export const mar2026: Stage[] = [
+  {
+    id: '12-03',
+    size: 8,
+    grid: [
+    ['purple', 'orange', 'blue'  , 'blue'  , 'blue'  , 'green' , 'green' , 'green' ],
+    ['orange', 'orange', 'blue'  , 'blue'  , 'blue'  , 'green' , 'green' , 'green' ],
+    ['orange', 'orange', 'orange', 'blue'  , 'blue'  , 'green' , 'green' , 'green' ],
+    ['grey'  , 'grey'  , 'grey'  , 'blue'  , 'blue'  , 'blue'  , 'red'   , 'red'   ],
+    ['grey'  , 'grey'  , 'grey'  , 'grey'  , 'red'   , 'red'   , 'red'   , 'red'   ],
+    ['yellow', 'yellow', 'yellow', 'red'   , 'red'   , 'red'   , 'red'   , 'red'   ],
+    ['yellow', 'yellow', 'yellow', 'red'   , 'red'   , 'red'   , 'red'   , 'red'   ],
+    ['yellow', 'yellow', 'yellow', 'red'   , 'red'   , 'red'   , 'red'   , 'brown' ]
+  ],
+  },
+    {
+    id: '11-03',
+    size: 8,
+    grid: [
+    ['purple', 'orange', 'orange', 'blue'  , 'blue'  , 'blue'  , 'blue'  , 'blue'  ],
+    ['purple', 'green' , 'orange', 'blue'  , 'blue'  , 'blue'  , 'blue'  , 'blue'  ],
+    ['grey'  , 'green' , 'orange', 'blue'  , 'blue'  , 'blue'  , 'blue'  , 'blue'  ],
+    ['grey'  , 'orange', 'orange', 'orange', 'blue'  , 'blue'  , 'blue'  , 'blue'  ],
+    ['grey'  , 'grey'  , 'grey'  , 'grey'  , 'red'   , 'red'   , 'blue'  , 'blue'  ],
+    ['yellow', 'yellow', 'grey'  , 'grey'  , 'grey'  , 'red'   , 'blue'  , 'blue'  ],
+    ['yellow', 'yellow', 'yellow', 'yellow', 'yellow', 'red'   , 'brown' , 'brown' ],
+    ['yellow', 'yellow', 'yellow', 'yellow', 'red'   , 'red'   , 'red'   , 'brown' ]
+  ],
+  },
+    {
+    id: '10-03',
+    size: 8,
+    grid: [
+    ['purple', 'orange', 'blue'  , 'blue'  , 'blue'  , 'blue'  , 'blue'  , 'blue'  ],
+    ['purple', 'orange', 'blue'  , 'blue'  , 'blue'  , 'blue'  , 'blue'  , 'blue'  ],
+    ['orange', 'orange', 'green' , 'grey'  , 'grey'  , 'red'   , 'red'   , 'red'   ],
+    ['green' , 'green' , 'green' , 'grey'  , 'grey'  , 'red'   , 'red'   , 'red'   ],
+    ['green' , 'green' , 'green' , 'grey'  , 'grey'  , 'red'   , 'red'   , 'red'   ],
+    ['green' , 'green' , 'green' , 'grey'  , 'grey'  , 'red'   , 'yellow', 'yellow'],
+    ['red'   , 'red'   , 'red'   , 'red'   , 'red'   , 'red'   , 'yellow', 'brown' ],
+    ['red'   , 'red'   , 'red'   , 'red'   , 'red'   , 'red'   , 'yellow', 'brown' ]
+  ],
+  },
     {
     id: '09-03',
     size: 7,

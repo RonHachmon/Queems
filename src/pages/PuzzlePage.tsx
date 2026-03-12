@@ -18,6 +18,14 @@ export default function PuzzlePage() {
   const navigate = useNavigate()
   const liveRegionRef = useRef<HTMLParagraphElement>(null)
 
+  if (import.meta.env.DEV) console.log('[PuzzlePage] render — stageId:', stageId)
+
+  // Log mount/unmount (dev only)
+  useEffect(() => {
+    if (import.meta.env.DEV) console.log('[PuzzlePage] MOUNTED — stageId:', stageId)
+    return () => { if (import.meta.env.DEV) console.log('[PuzzlePage] UNMOUNTED — stageId:', stageId) }
+  }, [stageId])
+
   const {
     stageId: loadedStageId,
     queens,
@@ -55,6 +63,16 @@ export default function PuzzlePage() {
   useEffect(() => {
     loadStage(stageId)
   }, [stageId, loadStage])
+
+  // Clean up solved state on unmount so stale modal never shows on re-entry.
+  // NOTE: Do NOT reset stageId here — AnimatePresence keeps this component alive
+  // during exit animation, and resetting stageId would hit the !stage early return
+  // (plain div), causing AnimatePresence to lose track of the motion.div → blank screen.
+  useEffect(() => {
+    return () => {
+      useGameStore.setState({ isSolved: false, isNewRecord: false })
+    }
+  }, [])
 
   // Timer interval — increments every second while not solved
   useEffect(() => {
@@ -99,7 +117,7 @@ export default function PuzzlePage() {
     )
   }
 
-  const conflicts = deriveConflicts(queens, stage)
+  const conflicts = isStageReady ? deriveConflicts(queens, stage) : new Map()
   const conflictCount = conflicts.size / 2 // each pair adds two entries
   const timerRunning = !isSolved
   const previousBest = getBestTime(stageId)
