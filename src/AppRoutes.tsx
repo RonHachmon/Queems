@@ -5,8 +5,12 @@ import PuzzlePage from '@/pages/PuzzlePage'
 
 export default function AppRoutes() {
   const location = useLocation()
+  if (import.meta.env.DEV) console.log('[AppRoutes] render — pathname:', location.pathname, 'key:', location.key)
   return (
-    <AnimatePresence mode="wait">
+    <AnimatePresence
+      mode="wait"
+      onExitComplete={() => { if (import.meta.env.DEV) console.log('[AppRoutes] onExitComplete — exit animation finished') }}
+    >
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<StageSelectPage />} />
         <Route path="/stage/:stageId" element={<PuzzlePage />} />
