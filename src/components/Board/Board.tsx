@@ -14,7 +14,7 @@ function coordFromTouch(touch: React.Touch): { row: number; col: number } | null
 export default function Board({ stage, queens, conflicts, markedCells, onCellClick, disabled, onCellMouseDown, onCellMouseEnter }: BoardProps) {
   return (
     <div
-      className="w-full max-w-[min(90vw,24rem)] mx-auto border-4 border-gray-900  overflow-hidden shadow-xl"
+      className="w-full max-w-[min(96vw,32rem)] mx-auto border-4 border-gray-900 overflow-hidden shadow-xl"
       style={{ display: 'grid', gridTemplateColumns: `repeat(${stage.size}, 1fr)`, touchAction: 'none' }}
       onTouchStart={(e) => {
         const coord = coordFromTouch(e.touches[0])
