@@ -136,10 +136,10 @@ export default function PuzzlePage() {
       initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0 }}
-      className="flex flex-col items-center min-h-screen bg-surface px-4 py-8 gap-6"
+      className="flex flex-col items-center justify-center min-h-dvh bg-surface px-2 py-4 gap-3"
     >
       {/* Header */}
-      <div className="w-full max-w-sm flex items-center justify-between">
+      <div className="w-full max-w-[min(96vw,32rem)] flex items-center justify-between">
         <button
           type="button"
           onClick={() => navigate('/')}
@@ -174,7 +174,7 @@ export default function PuzzlePage() {
       />
 
       {/* Bottom controls: Undo + Reset */}
-      <div className="flex gap-6 w-full max-w-sm justify-center">
+      <div className="flex gap-6 w-full max-w-[min(96vw,32rem)] justify-center">
         <button
           type="button"
           onClick={undo}
